@@ -168,47 +168,116 @@
     /* DIAGRAMA INTERACTIVO */
     .diagram-container {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       margin: 3rem 0;
       position: relative;
-      height: 350px;
+      min-height: 400px;
     }
     
     .circles {
       position: relative;
       width: 300px;
       height: 300px;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Animación de rotación de círculos */
+    .circles svg {
+      animation: rotateGroups 20s infinite linear;
+    }
+    
+    @keyframes rotateGroups {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     
     svg {
       width: 100%;
       height: 100%;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 4px 12px rgba(26, 58, 82, 0.15));
+      transform-origin: center;
+    }
+    
+    /* Rotación alternada para círculos específicos */
+    .circle-outer {
+      animation: rotateOuter 25s infinite linear;
+      transform-origin: center;
+    }
+    
+    .circle-middle {
+      animation: rotateMiddle 30s infinite linear reverse;
+      transform-origin: center;
+    }
+    
+    .circle-inner {
+      animation: rotateInner 20s infinite linear;
+      transform-origin: center;
+    }
+    
+    @keyframes rotateOuter {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes rotateMiddle {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+    
+    @keyframes rotateInner {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     
     circle {
       cursor: pointer;
-      transition: opacity .3s, filter .3s;
-      fill-opacity: 0.05;
+      transition: fill-opacity .3s;
+      fill-opacity: 0.08;
     }
     
     circle:hover {
-      fill-opacity: 0.15;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      fill-opacity: 0.2;
+      filter: drop-shadow(0 2px 6px rgba(26, 58, 82, 0.25));
     }
     
     circle.active {
-      fill-opacity: 0.25;
+      fill-opacity: 0.3;
+      filter: drop-shadow(0 2px 8px rgba(107, 142, 113, 0.3));
     }
     
     .circle-label {
       cursor: pointer;
       font-family: 'Fraunces', serif;
-      font-size: 1.2rem;
-      font-weight: 500;
+      font-size: 1rem;
+      font-weight: 600;
       user-select: none;
       transition: fill .3s;
+      letter-spacing: 0.05em;
+    }
+    
+    .circle-label:hover {
+      fill: #6b8e71;
+      filter: drop-shadow(0 1px 3px rgba(107, 142, 113, 0.5));
+    }
+    
+    /* CTA del gráfico */
+    .diagram-cta {
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--sage);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      animation: pulse 2s ease-in-out infinite;
+      margin-top: 1rem;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
     }
     
     .part-info {
@@ -347,6 +416,21 @@
     }
     
     /* RESPONSIVE */
+    @media(max-width: 900px) {
+      .diagram-container {
+        min-height: 380px;
+      }
+      
+      .circles {
+        width: 280px;
+        height: 280px;
+      }
+      
+      .circle-label {
+        font-size: 0.95rem;
+      }
+    }
+    
     @media(max-width: 760px) {
       .container {
         padding: 5rem 5% 3rem;
@@ -365,12 +449,69 @@
       }
       
       .diagram-container {
-        height: 280px;
+        min-height: 360px;
+        margin: 2rem 0;
       }
       
       .circles {
-        width: 250px;
-        height: 250px;
+        width: 240px;
+        height: 240px;
+      }
+      
+      .circle-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      
+      .diagram-cta {
+        font-size: 0.8rem;
+        margin-top: 1.2rem;
+      }
+      
+      svg {
+        filter: drop-shadow(0 2px 8px rgba(26, 58, 82, 0.1));
+      }
+    }
+    
+    @media(max-width: 600px) {
+      .diagram-container {
+        min-height: 340px;
+        margin: 2rem 0 2.5rem;
+      }
+      
+      .circles {
+        width: 220px;
+        height: 220px;
+      }
+      
+      .circle-label {
+        font-size: 0.8rem;
+      }
+      
+      .diagram-cta {
+        font-size: 0.75rem;
+        margin-top: 1rem;
+      }
+    }
+    
+    @media(max-width: 480px) {
+      .diagram-container {
+        min-height: 320px;
+      }
+      
+      .circles {
+        width: 200px;
+        height: 200px;
+      }
+      
+      .circle-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      
+      svg circle {
+        stroke-width: 2 !important;
       }
     }
     
@@ -456,19 +597,33 @@
       <!-- DIAGRAMA INTERACTIVO -->
       <div class="diagram-container">
         <div class="circles">
-          <svg viewBox="0 0 300 300">
-            <!-- Círculo exterior (Cuerpo) -->
-            <circle cx="150" cy="150" r="140" stroke="#1a3a52" stroke-width="2" fill="#1a3a52" data-part="cuerpo" class="part-circle"/>
-            <!-- Círculo medio (Alma) -->
-            <circle cx="150" cy="150" r="95" stroke="#6b8e71" stroke-width="2" fill="#6b8e71" data-part="alma" class="part-circle"/>
-            <!-- Círculo interior (Espíritu) -->
-            <circle cx="150" cy="150" r="50" stroke="#fafaf6" stroke-width="2" fill="#fafaf6" data-part="espiritu" class="part-circle"/>
+          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Definir grupos para rotación independiente -->
+            <g class="circle-outer">
+              <!-- Círculo exterior (Cuerpo) -->
+              <circle cx="150" cy="150" r="140" stroke="#1a3a52" stroke-width="2.5" fill="#1a3a52" data-part="cuerpo" class="part-circle"/>
+              <!-- Etiqueta Cuerpo -->
+              <text x="150" y="42" text-anchor="middle" class="circle-label" data-part="cuerpo" style="fill: #1a3a52;">CUERPO</text>
+            </g>
             
-            <!-- Etiquetas -->
-            <text x="150" y="45" text-anchor="middle" class="circle-label" data-part="cuerpo">CUERPO</text>
-            <text x="150" y="155" text-anchor="middle" class="circle-label" data-part="alma">ALMA</text>
-            <text x="150" y="160" text-anchor="middle" class="circle-label" data-part="espiritu" style="fill: #1a3a52;">ESPÍRITU</text>
+            <g class="circle-middle">
+              <!-- Círculo medio (Alma) -->
+              <circle cx="150" cy="150" r="95" stroke="#6b8e71" stroke-width="2.5" fill="#6b8e71" data-part="alma" class="part-circle"/>
+              <!-- Etiqueta Alma -->
+              <text x="150" y="155" text-anchor="middle" class="circle-label" data-part="alma" style="fill: #1a3a52;">ALMA</text>
+            </g>
+            
+            <g class="circle-inner">
+              <!-- Círculo interior (Espíritu) -->
+              <circle cx="150" cy="150" r="50" stroke="#fafaf6" stroke-width="2.5" fill="#fafaf6" data-part="espiritu" class="part-circle"/>
+              <!-- Etiqueta Espíritu -->
+              <text x="150" y="157" text-anchor="middle" class="circle-label" data-part="espiritu" style="fill: #1a3a52; font-size: 0.95rem; font-weight: 700;">ESPÍRITU</text>
+            </g>
           </svg>
+        </div>
+        <!-- Llamado a la acción -->
+        <div class="diagram-cta">
+          ↻ Haz clic para explorar
         </div>
       </div>
       
@@ -652,9 +807,10 @@
   </footer>
 
   <script>
-    // Diagrama interactivo
+    // Diagrama interactivo - Compatible con animaciones
     document.querySelectorAll('.part-circle, .circle-label').forEach(element => {
-      element.addEventListener('click', function() {
+      element.addEventListener('click', function(e) {
+        e.stopPropagation();
         const part = this.dataset.part;
         
         // Remover clase active de todos
@@ -669,13 +825,29 @@
         // Añadir clase active al clickeado
         document.getElementById(part + '-info').classList.add('active');
         document.querySelector(`[data-part="${part}"].part-circle`).classList.add('active');
+        
+        // Scroll suave hacia la información
+        setTimeout(() => {
+          const info = document.getElementById(part + '-info');
+          if (info) {
+            info.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 100);
       });
+      
+      // Pointer para indicar interactividad
+      element.style.cursor = 'pointer';
     });
     
-    // Activar espíritu por defecto
-    setTimeout(() => {
-      document.querySelector('[data-part="espiritu"].part-circle').click();
-    }, 500);
+    // Activar espíritu por defecto después de que cargue la página
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        const espirituCircle = document.querySelector('[data-part="espiritu"].part-circle');
+        if (espirituCircle) {
+          espirituCircle.click();
+        }
+      }, 600);
+    });
   </script>
 
 </body>
