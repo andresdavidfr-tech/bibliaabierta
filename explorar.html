@@ -262,6 +262,10 @@
       filter: drop-shadow(0 1px 3px rgba(107, 142, 113, 0.5));
     }
     
+    .circle-label textPath {
+      pointer-events: all;
+    }
+    
     /* CTA del gráfico */
     .diagram-cta {
       text-align: center;
@@ -598,26 +602,51 @@
       <div class="diagram-container">
         <div class="circles">
           <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Definiciones de paths para que el texto siga la curvatura -->
+            <defs>
+              <!-- Path circular para CUERPO (exterior) -->
+              <path id="circle-outer-path" d="M 150 10 A 140 140 0 0 1 150 290 A 140 140 0 0 1 150 10" fill="none"/>
+              <!-- Path circular para ALMA (medio) -->
+              <path id="circle-middle-path" d="M 150 55 A 95 95 0 0 1 150 245 A 95 95 0 0 1 150 55" fill="none"/>
+              <!-- Path circular para ESPÍRITU (interior) -->
+              <path id="circle-inner-path" d="M 150 100 A 50 50 0 0 1 150 200 A 50 50 0 0 1 150 100" fill="none"/>
+            </defs>
+            
             <!-- Definir grupos para rotación independiente -->
             <g class="circle-outer">
               <!-- Círculo exterior (Cuerpo) -->
               <circle cx="150" cy="150" r="140" stroke="#1a3a52" stroke-width="2.5" fill="#1a3a52" data-part="cuerpo" class="part-circle"/>
-              <!-- Etiqueta Cuerpo - Superior -->
-              <text x="150" y="50" text-anchor="middle" class="circle-label" data-part="cuerpo" style="fill: #1a3a52;">CUERPO</text>
+              
+              <!-- Etiqueta CUERPO siguiendo la curvatura -->
+              <text class="circle-label" data-part="cuerpo" style="fill: #1a3a52; font-size: 1rem;">
+                <textPath href="#circle-outer-path" startOffset="50%" text-anchor="middle">
+                  CUERPO
+                </textPath>
+              </text>
             </g>
             
             <g class="circle-middle">
               <!-- Círculo medio (Alma) -->
               <circle cx="150" cy="150" r="95" stroke="#6b8e71" stroke-width="2.5" fill="#6b8e71" data-part="alma" class="part-circle"/>
-              <!-- Etiqueta Alma - Izquierda -->
-              <text x="75" y="155" text-anchor="middle" class="circle-label" data-part="alma" style="fill: #1a3a52;">ALMA</text>
+              
+              <!-- Etiqueta ALMA siguiendo la curvatura -->
+              <text class="circle-label" data-part="alma" style="fill: #1a3a52; font-size: 0.95rem; font-weight: 600;">
+                <textPath href="#circle-middle-path" startOffset="50%" text-anchor="middle">
+                  ALMA
+                </textPath>
+              </text>
             </g>
             
             <g class="circle-inner">
               <!-- Círculo interior (Espíritu) -->
               <circle cx="150" cy="150" r="50" stroke="#fafaf6" stroke-width="2.5" fill="#fafaf6" data-part="espiritu" class="part-circle"/>
-              <!-- Etiqueta Espíritu - Centro inferior -->
-              <text x="150" y="165" text-anchor="middle" class="circle-label" data-part="espiritu" style="fill: #1a3a52; font-size: 0.95rem; font-weight: 700;">ESPÍRITU</text>
+              
+              <!-- Etiqueta ESPÍRITU siguiendo la curvatura -->
+              <text class="circle-label" data-part="espiritu" style="fill: #1a3a52; font-size: 0.9rem; font-weight: 700;">
+                <textPath href="#circle-inner-path" startOffset="50%" text-anchor="middle">
+                  ESPÍRITU
+                </textPath>
+              </text>
             </g>
           </svg>
         </div>
