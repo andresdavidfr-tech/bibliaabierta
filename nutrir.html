@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrir - Para Nuevos Creyentes | La Biblia Abierta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@6..144,400;6..144,500;6..144,600&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --white: #ffffff;
+      --cream: #fafaf6;
+      --navy: #1a3a52;
+      --slate: #5a6c7d;
+      --sage: #6b8e71;
+      --text-light: #8b9aaa;
+    }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Source Serif 4', serif;
+      background: var(--white);
+      color: var(--navy);
+      line-height: 1.7;
+    }
+    
+    /* NAVEGACIÓN */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 5%;
+      background: var(--white);
+      border-bottom: 1px solid var(--cream);
+    }
+    
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    
+    .logo .mark {
+      color: var(--sage);
+      margin-right: 0.3em;
+    }
+    
+    .nav-back {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--sage);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color .2s;
+    }
+    
+    .nav-back:hover {
+      color: var(--navy);
+    }
+    
+    /* CONTENIDO PRINCIPAL */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 6rem 5% 4rem;
+    }
+    
+    .content-header {
+      margin-bottom: 3rem;
+    }
+    
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--sage);
+      margin-bottom: 1rem;
+    }
+    
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+    }
+    
+    .intro-text {
+      font-size: 1.05rem;
+      color: var(--slate);
+      line-height: 1.8;
+      max-width: 700px;
+    }
+    
+    /* TABLA DE CONTENIDOS */
+    .table-of-contents {
+      margin: 3rem 0;
+      background: var(--cream);
+      border-left: 4px solid var(--sage);
+      border-radius: 3px;
+      padding: 0;
+      overflow: hidden;
+    }
+    
+    .toc-header {
+      padding: 1.5rem 2rem;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(26, 58, 82, 0.1);
+    }
+    
+    .toc-header h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      color: var(--navy);
+      margin: 0;
+    }
+    
+    .toc-items {
+      padding: 1rem 0;
+    }
+    
+    .toc-item {
+      padding: 1rem 2rem;
+      border-bottom: 1px solid rgba(26, 58, 82, 0.08);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .2s;
+    }
+    
+    .toc-item:last-child {
+      border-bottom: none;
+    }
+    
+    .toc-item:hover {
+      background: rgba(107, 142, 113, 0.05);
+    }
+    
+    .toc-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      color: var(--navy);
+      font-size: 0.95rem;
+      flex: 1;
+    }
+    
+    .toc-toggle {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sage);
+      font-weight: bold;
+      transition: transform .3s;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+    
+    .toc-item.open .toc-toggle {
+      transform: rotate(180deg);
+    }
+    
+    /* SECCIONES DE CONTENIDO */
+    .content-section {
+      margin-top: 2rem;
+      padding: 2.5rem;
+      background: var(--cream);
+      border-left: 4px solid var(--sage);
+      border-radius: 3px;
+      display: none;
+      animation: slideDown .3s ease;
+    }
+    
+    .content-section.active {
+      display: block;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+    
+    .section-text {
+      font-size: 1rem;
+      color: var(--navy);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    
+    .section-subtitle {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--slate);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .highlight {
+      color: var(--sage);
+      font-weight: 500;
+    }
+    
+    .scripture {
+      font-style: italic;
+      color: var(--slate);
+      margin: 1.5rem 0;
+      padding: 1rem 1.5rem;
+      background: var(--white);
+      border-left: 3px solid var(--sage);
+      border-radius: 2px;
+    }
+    
+    .points-list {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .point {
+      margin-bottom: 1.2rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    
+    .point::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--sage);
+      font-size: 1.2rem;
+    }
+    
+    .point-title {
+      font-weight: 600;
+      color: var(--navy);
+    }
+    
+    /* FOOTER */
+    footer {
+      margin-top: 5rem;
+      padding: 3rem 5% 2rem;
+      border-top: 1px solid var(--cream);
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+    }
+    
+    footer p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    /* RESPONSIVE */
+    @media(max-width: 760px) {
+      .container {
+        padding: 5rem 5% 3rem;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .toc-item {
+        padding: 0.9rem 1.5rem;
+      }
+      
+      .toc-label {
+        font-size: 0.9rem;
+      }
+      
+      .section-title {
+        font-size: 1.5rem;
+      }
+      
+      .content-section {
+        padding: 1.8rem;
+      }
+    }
+    
+    @media(prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- NAVEGACIÓN -->
+  <nav>
+    <a href="index.html" class="logo">
+      <span class="mark">✦</span>La Biblia Abierta
+    </a>
+    <a href="index.html" class="nav-back">← Volver</a>
+  </nav>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="container">
+    
+    <div class="content-header">
+      <div class="eyebrow">Nutrición Espiritual</div>
+      <h1>Soy un Nuevo Creyente</h1>
+      <p class="intro-text">
+        ¡Felicidades! Has recibido a Jesucristo como tu Salvador. Ahora comienza 
+        una vida nueva y emocionante. Esta sección te ayudará a crecer espiritualmente 
+        y a entender los fundamentos de la fe cristiana. Haz clic en cualquier tema 
+        para aprender más.
+      </p>
+    </div>
+
+    <!-- TABLA DE CONTENIDOS INTERACTIVA -->
+    <div class="table-of-contents">
+      <div class="toc-header">
+        <h3>Tabla de Contenidos</h3>
+      </div>
+      <div class="toc-items" id="toc-items"></div>
+    </div>
+
+    <!-- SECCIONES DE CONTENIDO -->
+    <div id="content-sections"></div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      © 2025 La Biblia Abierta — Un ministerio independiente inspirado en 
+      el legado de Watchman Nee y Witness Lee
+    </p>
+  </footer>
+
+  <script>
+    // Datos de contenido
+    const sections = [
+      {
+        id: "certeza-salvacion",
+        title: "La Certeza y Seguridad de la Salvación",
+        content: `
+          <p class="section-text">
+            Como nuevo creyente, es importante que <span class="highlight">sepas con certeza</span> 
+            que has sido salvado. La salvación no es algo basado en tus sentimientos o en lo que hayas 
+            hecho, sino en la promesa segura de Dios a través de Cristo.
+          </p>
+          
+          <div class="scripture">
+            "Estas cosas os he escrito a vosotros que creéis en el nombre del Hijo de Dios, 
+            para que sepáis que tenéis vida eterna." — 1 Juan 5:13
+          </div>
+          
+          <p class="section-text">
+            Tu salvación está asegurada porque:
+          </p>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Cristo murió por ti</span> — Tu pecado fue completamente pagado en la cruz (Romanos 6:10)
+            </div>
+            <div class="point">
+              <span class="point-title">Recibiste nueva vida</span> — Tu espíritu fue regenerado cuando creíste (2 Corintios 5:17)
+            </div>
+            <div class="point">
+              <span class="point-title">Eres hijo de Dios</span> — Tienes una nueva posición y familia (Juan 1:12)
+            </div>
+            <div class="point">
+              <span class="point-title">El Espíritu mora en ti</span> — Dios vive en tu espíritu y testifica tu salvación (Romanos 8:16)
+            </div>
+          </div>
+          
+          <p class="section-text">
+            No mires a tus sentimientos, mira a la Palabra de Dios. Tu salvación es 
+            <span class="highlight">completa, segura y eterna</span>.
+          </p>
+        `
+      },
+      {
+        id: "bautismo",
+        title: "El Bautismo",
+        content: `
+          <p class="section-text">
+            El bautismo es el primer paso público de tu nueva vida con Cristo. Es una 
+            declaración externa de tu fe interna y una identificación con la muerte 
+            y resurrección de Cristo.
+          </p>
+          
+          <div class="scripture">
+            "Por tanto, id, y haced discípulos a todas las naciones, bautizándolos en el nombre 
+            del Padre, y del Hijo, y del Espíritu Santo." — Mateo 28:19
+          </div>
+          
+          <div class="section-subtitle">¿Qué significa el bautismo?</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Muerte al pasado</span> — Ser sumergido representa morir con Cristo al pecado
+            </div>
+            <div class="point">
+              <span class="point-title">Resurrección nueva</span> — Salir del agua representa tu nuevo vivir en Cristo
+            </div>
+            <div class="point">
+              <span class="point-title">Testimonio público</span> — Declaras abiertamente tu fe ante otros
+            </div>
+            <div class="point">
+              <span class="point-title">Obediencia al Señor</span> — Cumples el mandamiento de Cristo
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Si aún no has sido bautizado, <span class="highlight">busca una iglesia local</span> 
+            donde puedas ser bautizado cuanto antes.
+          </p>
+        `
+      },
+      {
+        id: "espiritu-mezclado",
+        title: "El Espíritu Mezclado",
+        content: `
+          <p class="section-text">
+            Una verdad profunda del Nuevo Testamento es que tu espíritu se ha <span class="highlight">mezclado 
+            con el Espíritu de Dios</span>. Esto significa que ahora Dios y tú son uno en espíritu, no dos seres separados.
+          </p>
+          
+          <div class="scripture">
+            "Pero el que se une al Señor, un espíritu es con él." — 1 Corintios 6:17
+          </div>
+          
+          <p class="section-text">
+            Esta es una realidad extraordinaria. Tu espíritu humano y el Espíritu de Dios 
+            están unidos. Cuando Cristo regrese a la tierra, esta unión se completará:
+          </p>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Regeneración</span> — Tu espíritu ahora está vivo con la vida de Dios
+            </div>
+            <div class="point">
+              <span class="point-title">Comunión íntima</span> — Tienes acceso directo a Dios en tu espíritu
+            </div>
+            <div class="point">
+              <span class="point-title">Transformación</span> — Tu alma será poco a poco transformada
+            </div>
+            <div class="point">
+              <span class="point-title">Glorificación</span> — Tu cuerpo será glorificado cuando Cristo regrese
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Aprender a vivir desde tu espíritu, donde Dios mora, es la clave de una vida victoriosa en Cristo.
+          </p>
+        `
+      },
+      {
+        id: "invocar-nombre",
+        title: "Invocar el Nombre del Señor",
+        content: `
+          <p class="section-text">
+            Una práctica fundamental en la vida cristiana es <span class="highlight">invocar el nombre del Señor</span>. 
+            Esto significa llamar a Jesús por su nombre de una manera personal, simple y directa.
+          </p>
+          
+          <div class="scripture">
+            "Todo aquel que invocare el nombre del Señor será salvo." — Romanos 10:13
+          </div>
+          
+          <p class="section-text">
+            Invocar el nombre de Jesús no es religiosidad vacía, sino una conexión genuina 
+            con el Señor vivo. Es una forma de:
+          </p>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Tocar a Dios</span> — Conectar directamente con el Señor en tu espíritu
+            </div>
+            <div class="point">
+              <span class="point-title">Recibir su vida</span> — El nombre representa la persona y su poder
+            </div>
+            <div class="point">
+              <span class="point-title">Crecer en comunión</span> — Cultivar una relación viva con Jesús
+            </div>
+            <div class="point">
+              <span class="point-title">Superar dificultades</span> — En momentos de necesidad, invoca su nombre
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Comienza ahora: Di simplemente "Señor Jesús" o "Jesús" con tu corazón. 
+            Verás cómo su presencia viene a ti en ese momento.
+          </p>
+        `
+      },
+      {
+        id: "palabra-vida",
+        title: "La Palabra de Vida",
+        content: `
+          <p class="section-text">
+            La Biblia no es solo un libro histórico o literario. Es <span class="highlight">la Palabra viva de Dios</span> 
+            que contiene vida eterna y tiene poder para transformarte.
+          </p>
+          
+          <div class="scripture">
+            "Las palabras que yo os he hablado son espíritu y son vida." — Juan 6:63
+          </div>
+          
+          <p class="section-text">
+            Como nuevo creyente, debes comprometerte a conocer la Palabra de Dios:
+          </p>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Lee la Biblia regularmente</span> — Especialmente el Evangelio de Juan
+            </div>
+            <div class="point">
+              <span class="point-title">Abre tu espíritu a ella</span> — La Palabra no es solo información, es vida
+            </div>
+            <div class="point">
+              <span class="point-title">Obedece lo que lees</span> — La verdadera comprensión viene con la obediencia
+            </div>
+            <div class="point">
+              <span class="point-title">Medita en ella</span> — Reflexiona sobre lo que Dios te muestra
+            </div>
+          </div>
+          
+          <p class="section-text">
+            La Palabra de Dios tiene poder para limpiar tu espíritu, guiar tu vida y transformarte 
+            de adentro hacia afuera. Es tu alimento espiritual.
+          </p>
+        `
+      },
+      {
+        id: "orar-leer",
+        title: "Orar-Leer la Palabra",
+        content: `
+          <p class="section-text">
+            Una práctica poderosa en la vida cristiana es <span class="highlight">orar-leer la Palabra</span>. 
+            Esto combina la lectura de la Biblia con la oración, permitiéndote que el Espíritu Santo 
+            te hable a través de las Escrituras.
+          </p>
+          
+          <div class="section-subtitle">¿Cómo practicar orar-leer?</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">1. Busca un pasaje</span> — Elige un capítulo o pasaje de la Biblia
+            </div>
+            <div class="point">
+              <span class="point-title">2. Lee despacio</span> — Lee algunas versículos con atención y reverencia
+            </div>
+            <div class="point">
+              <span class="point-title">3. Invoca el nombre</span> — Di "Señor Jesús" de corazón
+            </div>
+            <div class="point">
+              <span class="point-title">4. Deja que toque tu corazón</span> — Permite que el Espíritu te hable
+            </div>
+            <div class="point">
+              <span class="point-title">5. Responde en oración</span> — Habla con Dios sobre lo que te mostró
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Orar-leer la Palabra es una manera <span class="highlight">íntima</span> de conectar con Dios. 
+            No es un estudio académico, sino una comunión espiritual.
+          </p>
+        `
+      },
+      {
+        id: "terminar-pasado",
+        title: "Terminar con el Pasado",
+        content: `
+          <p class="section-text">
+            Ahora que has recibido a Cristo, es crucial que <span class="highlight">hagas un corte limpio 
+            con tu pasado</span>. Esto no significa que los olvides, sino que ya no permitas que 
+            controlen tu vida.
+          </p>
+          
+          <div class="scripture">
+            "De modo que si alguno está en Cristo, nueva criatura es; las cosas viejas pasaron; 
+            he aquí todas son hechas nuevas." — 2 Corintios 5:17
+          </div>
+          
+          <div class="section-subtitle">¿Qué significa terminar con el pasado?</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Rechazar la culpa</span> — Tu pecado pasado fue perdonado en la cruz
+            </div>
+            <div class="point">
+              <span class="point-title">Separarte de malas amistades</span> — Las relaciones que te alejaban de Dios
+            </div>
+            <div class="point">
+              <span class="point-title">Dejar atrás hábitos pecaminosos</span> — Sustituirlos con patrones nuevos
+            </div>
+            <div class="point">
+              <span class="point-title">Renovar tu mente</span> — Permitir que la Palabra de Dios transforme tus pensamientos
+            </div>
+            <div class="point">
+              <span class="point-title">Perdonar a otros</span> — Suelta el resentimiento hacia quienes te hirieron
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Esta es una decisión deliberada y un proceso continuo. Necesitarás la gracia de Dios 
+            y posiblemente la ayuda de otros creyentes para lograrlo.
+          </p>
+        `
+      },
+      {
+        id: "consagracion",
+        title: "La Consagración",
+        content: `
+          <p class="section-text">
+            La consagración significa <span class="highlight">entregar tu vida completamente a Dios</span>. 
+            No solo salvación de tus pecados, sino la entrega de ti mismo al propósito y plan de Dios.
+          </p>
+          
+          <div class="scripture">
+            "Así que, hermanos, os ruego por las misericordias de Dios, que presentéis vuestros 
+            cuerpos en sacrificio vivo, santo, agradable a Dios, que es vuestro culto racional." 
+            — Romanos 12:1
+          </div>
+          
+          <p class="section-text">
+            La consagración incluye:
+          </p>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Tu tiempo</span> — Dedica tiempo a Dios en oración y lectura de la Palabra
+            </div>
+            <div class="point">
+              <span class="point-title">Tu dinero</span> — Usa lo que tienes de manera que honre a Dios
+            </div>
+            <div class="point">
+              <span class="point-title">Tus talentos</span> — Usa tus dones para servir al Señor y a otros
+            </div>
+            <div class="point">
+              <span class="point-title">Tu voluntad</span> — Busca la voluntad de Dios antes que la tuya
+            </div>
+            <div class="point">
+              <span class="point-title">Tu cuerpo</span> — Cuida tu salud, evita la inmoralidad
+            </div>
+          </div>
+          
+          <p class="section-text">
+            La consagración es el corazón de la vida cristiana madura. Es decir: "Señor, mi vida es tuya, 
+            haz conmigo lo que desees."
+          </p>
+        `
+      },
+      {
+        id: "medidas-pecados",
+        title: "Tomar Medidas con Respecto a los Pecados",
+        content: `
+          <p class="section-text">
+            Como nuevo creyente, aprenderás que algunos pecados específicos necesitan 
+            <span class="highlight">medidas concretas</span> — no solo confesión, sino acciones.
+          </p>
+          
+          <div class="scripture">
+            "Si confesamos nuestros pecados, él es fiel y justo para perdonar nuestros pecados, 
+            y limpiarnos de toda maldad." — 1 Juan 1:9
+          </div>
+          
+          <div class="section-subtitle">Pasos para manejar el pecado:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Reconoce el pecado</span> — Sé honesto contigo mismo y con Dios
+            </div>
+            <div class="point">
+              <span class="point-title">Confiésalo a Dios</span> — Cuéntale específicamente lo que hiciste
+            </div>
+            <div class="point">
+              <span class="point-title">Arrepiéntete</span> — Cambia de dirección, no solo de opinión
+            </div>
+            <div class="point">
+              <span class="point-title">Toma medidas concretas</span> — Si dañaste a alguien, busca reconciliación
+            </div>
+            <div class="point">
+              <span class="point-title">Evita la ocasión</span> — Aléjate de lo que te tienta a pecar
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Si el pecado es grave o reincidente, puede ser sabio <span class="highlight">buscar ayuda 
+            de un líder espiritual</span> o consejero cristiano.
+          </p>
+        `
+      },
+      {
+        id: "medidas-mundo",
+        title: "Tomar Medidas con Respecto al Mundo",
+        content: `
+          <p class="section-text">
+            El "mundo" en la Biblia se refiere a los sistemas de vida que <span class="highlight">están 
+            en oposición a Dios</span>. Como nuevo creyente, debes establecer límites saludables.
+          </p>
+          
+          <div class="scripture">
+            "No améis al mundo, ni las cosas que están en el mundo. Si alguno ama al mundo, 
+            la caridad del Padre no está en él." — 1 Juan 2:15
+          </div>
+          
+          <div class="section-subtitle">Áreas de precaución:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Entretenimiento</span> — Sé selectivo con películas, música, contenido online
+            </div>
+            <div class="point">
+              <span class="point-title">Relaciones románticas</span> — Busca parejas que compartan tu fe
+            </div>
+            <div class="point">
+              <span class="point-title">Dinero y posesiones</span> — No dejes que las cosas materiales te controlen
+            </div>
+            <div class="point">
+              <span class="point-title">Filosofías mundanas</span> — Evalúa las ideas contra la Palabra de Dios
+            </div>
+            <div class="point">
+              <span class="point-title">Ociosidad espiritual</span> — Mantén tu comunión diaria con Dios
+            </div>
+          </div>
+          
+          <p class="section-text">
+            No se trata de ser extremista o separarse completamente, sino de ser <span class="highlight">sabio 
+            e intencional</span> en lo que permites en tu vida.
+          </p>
+        `
+      },
+      {
+        id: "cuerpo-cristo",
+        title: "El Cuerpo de Cristo",
+        content: `
+          <p class="section-text">
+            La iglesia no es un edificio o una institución. Es el <span class="highlight">Cuerpo de Cristo 
+            vivo</span> — todos los creyentes en Jesús unidos en un solo cuerpo espiritual.
+          </p>
+          
+          <div class="scripture">
+            "Ahora bien, ustedes son el cuerpo de Cristo, y cada uno es miembro de ese cuerpo." 
+            — 1 Corintios 12:27
+          </div>
+          
+          <p class="section-text">
+            Esto significa:
+          </p>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Perteneces a algo mayor</span> — No estás solo, eres parte del cuerpo de Cristo
+            </div>
+            <div class="point">
+              <span class="point-title">Tienes un don</span> — El Espíritu te ha dado dones para servir a otros
+            </div>
+            <div class="point">
+              <span class="point-title">Necesitas a otros</span> — Así como los miembros del cuerpo necesitan unos a otros
+            </div>
+            <div class="point">
+              <span class="point-title">Los otros te necesitan</span> — Tu participación contribuye al cuerpo
+            </div>
+            <div class="point">
+              <span class="point-title">Cristo es la cabeza</span> — Él dirige y coordina todo el cuerpo
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Encontrar tu lugar en el Cuerpo de Cristo es esencial para tu crecimiento espiritual.
+          </p>
+        `
+      },
+      {
+        id: "vida-reuniones",
+        title: "La Vida de Reuniones",
+        content: `
+          <p class="section-text">
+            Como creyente, necesitas conectar regularmente con otros creyentes en <span class="highlight">reuniones 
+            de oración, estudio de la Palabra y comunión</span>.
+          </p>
+          
+          <div class="scripture">
+            "Y considerémonos unos a otros para estimularnos al amor y a las buenas obras; 
+            no dejando de congregarnos, como algunos tienen por costumbre, sino exhortándonos; 
+            y tanto más, cuanto veis que aquel día se acerca." — Hebreos 10:24-25
+          </div>
+          
+          <div class="section-subtitle">Tipos de reuniones:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Reunión principal de la iglesia</span> — Donde la iglesia se congrega para adorar
+            </div>
+            <div class="point">
+              <span class="point-title">Reunión de grupo pequeño</span> — Comunión íntima en casas para oración y estudio
+            </div>
+            <div class="point">
+              <span class="point-title">Reunión de oración</span> — Interceder juntos por necesidades específicas
+            </div>
+            <div class="point">
+              <span class="point-title">Estudio bíblico</span> — Profundizar juntos en la Palabra
+            </div>
+          </div>
+          
+          <p class="section-text">
+            No faltes a las reuniones. Tu presencia importa y tu crecimiento espiritual depende 
+            de la comunión con otros creyentes.
+          </p>
+        `
+      },
+      {
+        id: "servir-senor",
+        title: "Servir al Señor",
+        content: `
+          <p class="section-text">
+            Tu nueva vida en Cristo no es solo para ti. Estás llamado a <span class="highlight">servir 
+            al Señor y a otros</span> en Su nombre.
+          </p>
+          
+          <div class="scripture">
+            "Cada uno según el don que ha recibido, minístrelo a los otros, como buenos 
+            administradores de la multiforme gracia de Dios." — 1 Pedro 4:10
+          </div>
+          
+          <div class="section-subtitle">Formas de servir:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Servicio en la iglesia local</span> — Enseñanza, liderazgo, intercesión
+            </div>
+            <div class="point">
+              <span class="point-title">Ministerio de compasión</span> — Ayudar a pobres, enfermos, necesitados
+            </div>
+            <div class="point">
+              <span class="point-title">Discipulado</span> — Ayudar a otros nuevos creyentes en su caminar
+            </div>
+            <div class="point">
+              <span class="point-title">Testimonio personal</span> — Vivir tu fe de manera que inspire a otros
+            </div>
+            <div class="point">
+              <span class="point-title">Dones espirituales</span> — Usar tus dones específicos para servir
+            </div>
+          </div>
+          
+          <p class="section-text">
+            No necesitas ser un líder ordenado para servir. Cada creyente tiene un 
+            <span class="highlight">ministerio específico</span> que Dios le ha encomendado.
+          </p>
+        `
+      },
+      {
+        id: "conocer-dios",
+        title: "Dios",
+        content: `
+          <p class="section-text">
+            Ahora que eres creyente, es crucial que <span class="highlight">conozcas a Dios 
+            personalmente</span>. No solo conocimiento intelectual, sino una relación viva.
+          </p>
+          
+          <div class="scripture">
+            "Y esta es la vida eterna: que te conozcan a ti, el único Dios verdadero, 
+            y a Jesucristo, a quien has enviado." — Juan 17:3
+          </div>
+          
+          <div class="section-subtitle">Atributos de Dios:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Omnipotente</span> — Todo poderoso, capaz de hacer cualquier cosa
+            </div>
+            <div class="point">
+              <span class="point-title">Omnisciente</span> — Todo lo sabe, incluyendo tus pensamientos
+            </div>
+            <div class="point">
+              <span class="point-title">Omnipresente</span> — Presente en todo lugar y momento
+            </div>
+            <div class="point">
+              <span class="point-title">Santo</span> — Completamente puro, separado del pecado
+            </div>
+            <div class="point">
+              <span class="point-title">Amoroso</span> — Su amor es incondicional y eterno
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Pasar tiempo conociendo los atributos de Dios te dará confianza en cualquier 
+            circunstancia. Él es completamente digno de tu confianza y adoración.
+          </p>
+        `
+      },
+      {
+        id: "conocer-cristo",
+        title: "Cristo",
+        content: `
+          <p class="section-text">
+            Cristo es el <span class="highlight">centro de tu fe cristiana</span>. No solo fue tu Salvador, 
+            ahora es tu vida, tu fortaleza y tu futuro.
+          </p>
+          
+          <div class="scripture">
+            "Para mí el vivir es Cristo, y el morir es ganancia." — Filipenses 1:21
+          </div>
+          
+          <div class="section-subtitle">Aspectos de Cristo:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Encarnación</span> — Dios se hizo hombre en Jesucristo
+            </div>
+            <div class="point">
+              <span class="point-title">Redención</span> — Su muerte pagó el precio de tu pecado
+            </div>
+            <div class="point">
+              <span class="point-title">Resurrección</span> — Venció la muerte y now vive para siempre
+            </div>
+            <div class="point">
+              <span class="point-title">Ascensión</span> — Regresó al cielo y está en el trono de Dios
+            </div>
+            <div class="point">
+              <span class="point-title">Regreso futuro</span> — Volverá para llevarte a Su presencia
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Gastar tiempo meditando en Cristo y en lo que hizo por ti profundizará tu amor 
+            y gratitud hacia Él.
+          </p>
+        `
+      },
+      {
+        id: "conocer-espiritu",
+        title: "El Espíritu",
+        content: `
+          <p class="section-text">
+            El Espíritu Santo es <span class="highlight">tu compañero en la vida cristiana</span>. 
+            Él es quien te fortalece, guía y capacita para vivir como hijo de Dios.
+          </p>
+          
+          <div class="scripture">
+            "Más el Consolador, el Espíritu Santo, a quien el Padre enviará en mi nombre, 
+            él os enseñará todas las cosas." — Juan 14:26
+          </div>
+          
+          <div class="section-subtitle">El trabajo del Espíritu Santo:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Regeneración</span> — Él te dio nueva vida espiritual
+            </div>
+            <div class="point">
+              <span class="point-title">Guía</span> — Te conduce en la voluntad de Dios
+            </div>
+            <div class="point">
+              <span class="point-title">Empoderamiento</span> — Te da poder para vivir una vida victoriosa
+            </div>
+            <div class="point">
+              <span class="point-title">Testificación</span> — Testifica que eres hijo de Dios
+            </div>
+            <div class="point">
+              <span class="point-title">Transformación</span> — Te transforma a la imagen de Cristo
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Aprende a sensibilizarte a la voz del Espíritu Santo. Él se comunica a través 
+            de la Palabra, la oración y la convicción interna.
+          </p>
+        `
+      },
+      {
+        id: "creyentes",
+        title: "Los Creyentes",
+        content: `
+          <p class="section-text">
+            Ahora eres parte de una familia global de <span class="highlight">hermanos y hermanas en Cristo</span>. 
+            Tu relación con otros creyentes es central en tu vida cristiana.
+          </p>
+          
+          <div class="scripture">
+            "Un mandamiento nuevo os doy: Que os améis unos a otros; como yo os he amado, 
+            que también os améis unos a otros." — Juan 13:34
+          </div>
+          
+          <div class="section-subtitle">La comunidad de creyentes:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Familia espiritual</span> — No solo amigos, sino hermanos en Dios
+            </div>
+            <div class="point">
+              <span class="point-title">Apoyo mutuo</span> — Se sostienen, animan y ayudan unos a otros
+            </div>
+            <div class="point">
+              <span class="point-title">Accountability</span> — Se cuidan mutuamente en la fe
+            </div>
+            <div class="point">
+              <span class="point-title">Crecimiento compartido</span> — Crecen juntos en Cristo
+            </div>
+            <div class="point">
+              <span class="point-title">Amor sacrificial</span> — Están dispuestos a servir y sacrificarse
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Busca creyentes que puedan discipularte y mentor que te guíen. La vida cristiana 
+            no fue hecha para ser vivida en soledad.
+          </p>
+        `
+      },
+      {
+        id: "iglesia",
+        title: "La Iglesia",
+        content: `
+          <p class="section-text">
+            La iglesia es <span class="highlight">el Cuerpo de Cristo expresado en un lugar específico</span>. 
+            Es tanto universal (todos los creyentes) como local (la iglesia en tu ciudad).
+          </p>
+          
+          <div class="scripture">
+            "También os digo, que tú eres Pedro, y sobre esta roca edificaré mi iglesia; 
+            y las puertas del Hades no prevalecerán contra ella." — Mateo 16:18
+          </div>
+          
+          <div class="section-subtitle">La naturaleza de la iglesia:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Edificio espiritual</span> — Construida sobre Cristo como la piedra angular
+            </div>
+            <div class="point">
+              <span class="point-title">Comunidad del Espíritu</span> — Unida no por reglas sino por el Espíritu
+            </div>
+            <div class="point">
+              <span class="point-title">Testigo en el mundo</span> — Declara el evangelio a través de su vida
+            </div>
+            <div class="point">
+              <span class="point-title">Escuela de Dios</span> — Donde aprendes a vivir como creyente
+            </div>
+            <div class="point">
+              <span class="point-title">Expresión de Cristo</span> — Representa a Cristo en la tierra
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Comprométete con una iglesia local. No es un lugar perfecto, pero es donde el 
+            Señor obra de manera poderosa.
+          </p>
+        `
+      },
+      {
+        id: "reino",
+        title: "El Reino",
+        content: `
+          <p class="section-text">
+            El reino de Dios es la <span class="highlight">soberanía y reinado de Dios en la tierra</span>. 
+            Como creyente, entras en este reino cuando recibes a Cristo.
+          </p>
+          
+          <div class="scripture">
+            "Respondió Jesús: Mi reino no es de este mundo; si mi reino fuera de este mundo, 
+            mis servidores pelearían para que yo no fuera entregado a los judíos; pero mi reino 
+            no es de aquí." — Juan 18:36
+          </div>
+          
+          <div class="section-subtitle">Características del reino:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Espiritual, no político</span> — No es un gobierno terrenal
+            </div>
+            <div class="point">
+              <span class="point-title">Ya presente</span> — Comenzó cuando Cristo vino
+            </div>
+            <div class="point">
+              <span class="point-title">Aún por completar</span> — Se perfeccionará cuando Cristo regrese
+            </div>
+            <div class="point">
+              <span class="point-title">Justicia y paz</span> — Caracterizado por rectitud
+            </div>
+            <div class="point">
+              <span class="point-title">Vida eterna</span> — Para quienes pertenecen a Cristo
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Tu vida ahora tiene un propósito cósmico: formar parte del reino eterno de Dios.
+          </p>
+        `
+      },
+      {
+        id: "nueva-jerusalen",
+        title: "La Nueva Jerusalén",
+        content: `
+          <p class="section-text">
+            Tu destino como creyente es la <span class="highlight">Nueva Jerusalén</span>, 
+            la ciudad eterna de Dios donde vivirás por siempre con Cristo.
+          </p>
+          
+          <div class="scripture">
+            "Y vi la ciudad santa, la nueva Jerusalén, que descendía del cielo, de parte de Dios, 
+            dispuesta como una esposa ataviada para su marido." — Apocalipsis 21:2
+          </div>
+          
+          <div class="section-subtitle">La Nueva Jerusalén:</div>
+          
+          <div class="points-list">
+            <div class="point">
+              <span class="point-title">Perfecta y gloriosa</span> — Belleza y esplendor indescriptible
+            </div>
+            <div class="point">
+              <span class="point-title">Morada de Dios</span> — Dios mora con los hombres
+            </div>
+            <div class="point">
+              <span class="point-title">Sin dolor ni muerte</span> — Todas las cosas malas han desaparecido
+            </div>
+            <div class="point">
+              <span class="point-title">Comunión directa</span> — Verás a Dios cara a cara
+            </div>
+            <div class="point">
+              <span class="point-title">Vida eterna</span> — Para siempre con Cristo
+            </div>
+          </div>
+          
+          <p class="section-text">
+            Esta es tu esperanza. Todo lo que enfrentes ahora es temporal. Tu futuro con Dios 
+            es eterno y glorioso.
+          </p>
+        `
+      }
+    ];
+
+    // Generar tabla de contenidos
+    const tocItemsContainer = document.getElementById('toc-items');
+    const contentContainer = document.getElementById('content-sections');
+
+    sections.forEach((section, index) => {
+      // Crear item en tabla de contenidos
+      const tocItem = document.createElement('div');
+      tocItem.className = 'toc-item';
+      tocItem.innerHTML = `
+        <span class="toc-label">${section.title}</span>
+        <div class="toc-toggle">▼</div>
+      `;
+      tocItem.addEventListener('click', () => {
+        toggleSection(section.id);
+        tocItem.classList.toggle('open');
+      });
+      tocItemsContainer.appendChild(tocItem);
+
+      // Crear sección de contenido
+      const contentSection = document.createElement('div');
+      contentSection.id = section.id;
+      contentSection.className = 'content-section';
+      contentSection.innerHTML = `
+        <h2 class="section-title">${section.title}</h2>
+        ${section.content}
+      `;
+      contentContainer.appendChild(contentSection);
+    });
+
+    // Función para alternar visibilidad de secciones
+    function toggleSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      section.classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
