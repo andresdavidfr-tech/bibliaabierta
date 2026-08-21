@@ -202,33 +202,36 @@
     
     /* Rotación alternada para círculos específicos */
     .circle-outer {
-      animation: rotateOuter 25s infinite linear;
-      transform-origin: center;
+      animation: rotateOuter 25s linear infinite;
+      transform-origin: 150px 150px;
+      will-change: transform;
     }
     
     .circle-middle {
-      animation: rotateMiddle 30s infinite linear reverse;
-      transform-origin: center;
+      animation: rotateMiddle 30s linear infinite;
+      transform-origin: 150px 150px;
+      will-change: transform;
     }
     
     .circle-inner {
-      animation: rotateInner 20s infinite linear;
-      transform-origin: center;
+      animation: rotateInner 20s linear infinite;
+      transform-origin: 150px 150px;
+      will-change: transform;
     }
     
     @keyframes rotateOuter {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     
     @keyframes rotateMiddle {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(-360deg); }
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
     }
     
     @keyframes rotateInner {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     
     circle {
