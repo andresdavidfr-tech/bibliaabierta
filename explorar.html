@@ -601,7 +601,7 @@
       <!-- DIAGRAMA INTERACTIVO -->
       <div class="diagram-container">
         <div class="circles">
-          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="pointer-events: auto;">
             <!-- Definiciones de paths para que el texto siga la curvatura -->
             <defs>
               <!-- Path circular para CUERPO (exterior) -->
@@ -615,38 +615,47 @@
             <!-- Definir grupos para rotación independiente -->
             <g class="circle-outer">
               <!-- Círculo exterior (Cuerpo) -->
-              <circle cx="150" cy="150" r="140" stroke="#1a3a52" stroke-width="2.5" fill="#1a3a52" data-part="cuerpo" class="part-circle"/>
+              <circle cx="150" cy="150" r="140" stroke="#1a3a52" stroke-width="2.5" fill="#1a3a52" data-part="cuerpo" class="part-circle" style="pointer-events: all; cursor: pointer;"/>
               
               <!-- Etiqueta CUERPO siguiendo la curvatura -->
-              <text class="circle-label" data-part="cuerpo" style="fill: #1a3a52; font-size: 1rem;">
+              <text class="circle-label" data-part="cuerpo" style="fill: #1a3a52; font-size: 1rem; pointer-events: all; cursor: pointer;">
                 <textPath href="#circle-outer-path" startOffset="50%" text-anchor="middle">
                   CUERPO
                 </textPath>
               </text>
+              
+              <!-- Área invisible para hacer clic más fácil -->
+              <circle cx="150" cy="150" r="140" fill="transparent" data-part="cuerpo" class="part-circle-clickable" style="pointer-events: all; cursor: pointer;"/>
             </g>
             
             <g class="circle-middle">
               <!-- Círculo medio (Alma) -->
-              <circle cx="150" cy="150" r="95" stroke="#6b8e71" stroke-width="2.5" fill="#6b8e71" data-part="alma" class="part-circle"/>
+              <circle cx="150" cy="150" r="95" stroke="#6b8e71" stroke-width="2.5" fill="#6b8e71" data-part="alma" class="part-circle" style="pointer-events: all; cursor: pointer;"/>
               
               <!-- Etiqueta ALMA siguiendo la curvatura -->
-              <text class="circle-label" data-part="alma" style="fill: #1a3a52; font-size: 0.95rem; font-weight: 600;">
+              <text class="circle-label" data-part="alma" style="fill: #1a3a52; font-size: 0.95rem; font-weight: 600; pointer-events: all; cursor: pointer;">
                 <textPath href="#circle-middle-path" startOffset="50%" text-anchor="middle">
                   ALMA
                 </textPath>
               </text>
+              
+              <!-- Área invisible para hacer clic más fácil -->
+              <circle cx="150" cy="150" r="95" fill="transparent" data-part="alma" class="part-circle-clickable" style="pointer-events: all; cursor: pointer;"/>
             </g>
             
             <g class="circle-inner">
               <!-- Círculo interior (Espíritu) -->
-              <circle cx="150" cy="150" r="50" stroke="#fafaf6" stroke-width="2.5" fill="#fafaf6" data-part="espiritu" class="part-circle"/>
+              <circle cx="150" cy="150" r="50" stroke="#fafaf6" stroke-width="2.5" fill="#fafaf6" data-part="espiritu" class="part-circle" style="pointer-events: all; cursor: pointer;"/>
               
               <!-- Etiqueta ESPÍRITU siguiendo la curvatura -->
-              <text class="circle-label" data-part="espiritu" style="fill: #1a3a52; font-size: 0.9rem; font-weight: 700;">
+              <text class="circle-label" data-part="espiritu" style="fill: #1a3a52; font-size: 0.9rem; font-weight: 700; pointer-events: all; cursor: pointer;">
                 <textPath href="#circle-inner-path" startOffset="50%" text-anchor="middle">
                   ESPÍRITU
                 </textPath>
               </text>
+              
+              <!-- Área invisible para hacer clic más fácil -->
+              <circle cx="150" cy="150" r="50" fill="transparent" data-part="espiritu" class="part-circle-clickable" style="pointer-events: all; cursor: pointer;"/>
             </g>
           </svg>
         </div>
@@ -836,11 +845,16 @@
   </footer>
 
   <script>
-    // Diagrama interactivo - Compatible con animaciones
-    document.querySelectorAll('.part-circle, .circle-label').forEach(element => {
+    // Diagrama interactivo mejorado
+    const clickableElements = document.querySelectorAll('.part-circle, .part-circle-clickable, .circle-label');
+    
+    clickableElements.forEach(element => {
       element.addEventListener('click', function(e) {
+        e.preventDefault();
         e.stopPropagation();
-        const part = this.dataset.part;
+        
+        const part = this.getAttribute('data-part');
+        if (!part) return;
         
         // Remover clase active de todos
         document.querySelectorAll('.part-info').forEach(info => {
@@ -852,8 +866,15 @@
         });
         
         // Añadir clase active al clickeado
-        document.getElementById(part + '-info').classList.add('active');
-        document.querySelector(`[data-part="${part}"].part-circle`).classList.add('active');
+        const infoElement = document.getElementById(part + '-info');
+        if (infoElement) {
+          infoElement.classList.add('active');
+        }
+        
+        const circleElement = document.querySelector(`[data-part="${part}"].part-circle`);
+        if (circleElement) {
+          circleElement.classList.add('active');
+        }
         
         // Scroll suave hacia la información
         setTimeout(() => {
@@ -871,9 +892,9 @@
     // Activar espíritu por defecto después de que cargue la página
     window.addEventListener('load', function() {
       setTimeout(() => {
-        const espirituCircle = document.querySelector('[data-part="espiritu"].part-circle');
-        if (espirituCircle) {
-          espirituCircle.click();
+        const espirituElement = document.querySelector('[data-part="espiritu"].part-circle');
+        if (espirituElement) {
+          espirituElement.click();
         }
       }, 600);
     });
