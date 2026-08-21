@@ -2,7 +2,7 @@
 
 **Una plataforma minimalista para encontrarse con Cristo en la Palabra revelada**
 
-Inspirada en el ministerio de Watchman Nee y Witness Lee, *La Biblia Abierta* es un espacio de estudio bíblico diseñado para tres tipos de audiencias:
+Un proyecto de promoción del evangelio y literatura saludable basado en las enseñanzas de Watchman Nee y Witness Lee. *La Biblia Abierta* es un espacio de estudio bíblico diseñado para tres tipos de audiencias:
 
 1. **Inconversos que desean conocer a Dios** — Explora las verdades fundamentales del evangelio
 2. **Nuevos creyentes** — Recibe nutrición espiritual y enseñanza práctica para tu nuevo caminar
