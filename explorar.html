@@ -315,28 +315,24 @@
       transform-origin: center;
     }
     
-    /* Asegurar que los textos en SVG estén bien centrados y alineados */
-    svg text {
-      dominant-baseline: middle;
-      text-anchor: middle;
-    }
-    
-    /* Rotación alternada para círculos específicos */
+    /* Rotación alternada para círculos específicos.
+       transform-origin relativo (50% 50%) para que quede centrado
+       en cualquier tamaño de .circles, no solo en 300px */
     .circle-outer {
       animation: rotateOuter 25s linear infinite;
-      transform-origin: 150px 150px;
+      transform-origin: 50% 50%;
       will-change: transform;
     }
     
     .circle-middle {
       animation: rotateMiddle 30s linear infinite;
-      transform-origin: 150px 150px;
+      transform-origin: 50% 50%;
       will-change: transform;
     }
     
     .circle-inner {
       animation: rotateInner 20s linear infinite;
-      transform-origin: 150px 150px;
+      transform-origin: 50% 50%;
       will-change: transform;
     }
     
@@ -823,34 +819,11 @@
         font-size: 1rem;
       }
       
+      /* El SVG escala solo por viewBox: basta con darle todo el ancho */
       .diagram-svg {
         max-width: 100%;
         height: auto;
-        margin: 2.5rem 0 !important;
-      }
-      
-      /* Aumentar círculos significativamente */
-      .circles {
-        width: 380px !important;
-        height: 380px !important;
-      }
-      
-      .circle-label {
-        font-size: 1.05rem;
-      }
-      
-      /* Aumentar textos en SVG para mejor legibilidad */
-      svg text {
-        font-size: 1.1rem !important;
-      }
-      
-      /* Ajustar estilos específicos de SVG */
-      svg circle {
-        stroke-width: 3 !important;
-      }
-      
-      svg line {
-        stroke-width: 3 !important;
+        margin: 2rem 0;
       }
       
       .content-section {
@@ -965,32 +938,21 @@
         min-height: 400px;
       }
       
+      /* 300px es obligatorio: transform-origin de las rotaciones es 150px 150px */
       .circles {
-        width: 380px !important;
-        height: 380px !important;
+        width: 300px;
+        height: 300px;
       }
       
       .circle-label {
-        font-size: 1.05rem;
+        font-size: 0.95rem;
         font-weight: 700;
         letter-spacing: 0.02em;
       }
       
-      svg circle {
-        stroke-width: 3 !important;
-      }
-      
       .diagram-svg {
-        max-width: 100% !important;
-        margin: 2.5rem 0 !important;
-      }
-      
-      .diagram-svg text {
-        font-size: 1.1rem !important;
-      }
-      
-      .diagram-svg line {
-        stroke-width: 3 !important;
+        max-width: 100%;
+        margin: 2rem 0;
       }
     }
     
@@ -1032,7 +994,7 @@
       <div class="section-title">El Plan de Dios</div>
       
       <!-- GRÁFICO: El Propósito de Dios -->
-      <svg class="diagram-svg" viewBox="0 0 500 200" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram-svg" viewBox="40 55 390 120" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="godGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style="stop-color:#6b8e71;stop-opacity:1" />
@@ -1214,7 +1176,7 @@
       <div class="section-title">La Caída del Hombre</div>
       
       <!-- GRÁFICO: El Impacto del Pecado -->
-      <svg class="diagram-svg" viewBox="0 0 500 240" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram-svg" viewBox="25 0 360 190" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="beforeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style="stop-color:#6b8e71;stop-opacity:1" />
@@ -1289,7 +1251,7 @@
       <div class="section-title">Cristo Redime al Hombre para que Dios Pueda Impartirse en Él</div>
       
       <!-- GRÁFICO: El Camino de la Redención -->
-      <svg class="diagram-svg" viewBox="0 0 500 220" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram-svg" viewBox="15 30 450 185" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="christGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
@@ -1331,7 +1293,7 @@
           <circle cx="420" cy="80" r="35" fill="url(#christGrad)"/>
           <text x="420" y="75" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Hombre</text>
           <text x="420" y="90" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Redimido</text>
-          <text x="420" y="130" text-anchor="middle" fill="ff9800" font-size="8">Reconciliado</text>
+          <text x="420" y="130" text-anchor="middle" fill="#ff9800" font-size="8">Reconciliado</text>
           <text x="420" y="140" text-anchor="middle" fill="#ff9800" font-size="8">Restaurado</text>
         </g>
         
@@ -1371,7 +1333,7 @@
       <div class="section-title">La Regeneración del Hombre</div>
       
       <!-- GRÁFICO: El Espíritu Revivido -->
-      <svg class="diagram-svg" viewBox="0 0 500 240" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram-svg" viewBox="25 0 410 218" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="lifeGrad" x1="0%" y1="100%" x2="0%" y2="0%">
             <stop offset="0%" style="stop-color:#6b8e71;stop-opacity:0.3" />
@@ -1462,7 +1424,7 @@
       <div class="section-title">La Salvación Completa que Dios Efectúa</div>
       
       <!-- GRÁFICO: El Proceso Completo de Salvación -->
-      <svg class="diagram-svg" viewBox="0 0 500 200" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram-svg" viewBox="15 55 335 130" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="spirit-grad" x1="0%" y1="100%" x2="0%" y2="0%">
             <stop offset="0%" style="stop-color:#81c784;stop-opacity:0.3" />
