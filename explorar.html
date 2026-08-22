@@ -818,18 +818,18 @@
       }
       
       .diagram-svg {
-        max-width: 95vw;
+        max-width: 100%;
         height: auto;
-        margin: 1.5rem 0;
+        margin: 2rem 0;
       }
       
       .circles {
-        width: 240px !important;
-        height: 240px !important;
+        width: 300px !important;
+        height: 300px !important;
       }
       
       .circle-label {
-        font-size: 0.8rem;
+        font-size: 0.95rem;
       }
       
       .content-section {
@@ -941,22 +941,35 @@
     
     @media(max-width: 480px) {
       .diagram-container {
-        min-height: 320px;
+        min-height: 350px;
       }
       
       .circles {
-        width: 200px;
-        height: 200px;
+        width: 300px !important;
+        height: 300px !important;
       }
       
       .circle-label {
-        font-size: 0.75rem;
+        font-size: 0.95rem;
         font-weight: 700;
         letter-spacing: 0.02em;
       }
       
       svg circle {
-        stroke-width: 2 !important;
+        stroke-width: 2.5 !important;
+      }
+      
+      .diagram-svg {
+        max-width: 100% !important;
+        margin: 2rem 0 !important;
+      }
+      
+      .diagram-svg text {
+        font-size: 1.05rem !important;
+      }
+      
+      .diagram-svg line {
+        stroke-width: 2.5 !important;
       }
     }
     
