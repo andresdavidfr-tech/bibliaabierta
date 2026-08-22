@@ -590,6 +590,29 @@
       transform: translateY(0);
     }
     
+    .prayer-button-secondary {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.9rem 2.2rem;
+      background: transparent;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-height: 48px;
+    }
+    
+    .prayer-button-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+    
     /* SECCIÓN DE REGISTRO */
     .registration-section {
       margin: 3rem 0;
@@ -1523,7 +1546,7 @@
       </p>
     </div>
 
-    <!-- SECCIÓN DE ORACIÓN MEJORADA - LLAMADO A LA ACCIÓN -->
+    <!-- SECCIÓN DE ORACIÓN Y LLAMADO A RECIBIR A CRISTO - UNIFICADA -->
     <div class="prayer-cta">
       <h3>🙏 ¿Listo para Entregarte a Cristo?</h3>
       <p>
@@ -1548,6 +1571,13 @@
       <button class="prayer-button" onclick="document.getElementById('registration-form').scrollIntoView({behavior: 'smooth'})">
         Registrarme para Recibir Estudio Bíblico → 
       </button>
+
+      <p style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.25); font-size: 0.95rem;">
+        Si ya has entregado tu vida a Cristo anteriormente, te invitamos a entrar en la sección 
+        <strong>"Soy un Nuevo Creyente"</strong> para recibir enseñanza profunda y nutrición espiritual 
+        que te ayudará a crecer en tu fe.
+      </p>
+      <a href="nutrir.html" class="prayer-button-secondary">Ir a Nutrir → </a>
     </div>
 
     <!-- FORMULARIO DE REGISTRO -->
@@ -1590,16 +1620,6 @@
           ✅ ¡Gracias por tu registro! Nos pondremos en contacto pronto con tu estudio bíblico personalizado.
         </div>
       </form>
-    </div>
-
-    <!-- CALL TO ACTION - VOLVER -->
-    <div class="cta-section">
-      <h3>¿Deseas Aprender Más?</h3>
-      <p>
-        Si ya has entregado tu vida a Cristo, te invitamos a entrar en la sección "Nutrir" 
-        para recibir enseñanza profunda y nutrición espiritual que te ayudará a crecer en tu fe.
-      </p>
-      <a href="index.html" class="cta-button">Volver a Inicio</a>
     </div>
 
   </div>
