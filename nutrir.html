@@ -1933,9 +1933,9 @@
         closeTOCOnMobile();
         
         // Scroll suave hacia el contenido
-        const section = document.getElementById(section.id);
+        const sectionEl = document.getElementById(section.id);
         setTimeout(() => {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
       });
       tocItem.setAttribute('data-section', section.id);
