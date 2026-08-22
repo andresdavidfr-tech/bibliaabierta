@@ -315,6 +315,12 @@
       transform-origin: center;
     }
     
+    /* Asegurar que los textos en SVG estén bien centrados y alineados */
+    svg text {
+      dominant-baseline: middle;
+      text-anchor: middle;
+    }
+    
     /* Rotación alternada para círculos específicos */
     .circle-outer {
       animation: rotateOuter 25s linear infinite;
@@ -820,16 +826,31 @@
       .diagram-svg {
         max-width: 100%;
         height: auto;
-        margin: 2rem 0;
+        margin: 2.5rem 0 !important;
       }
       
+      /* Aumentar círculos significativamente */
       .circles {
-        width: 300px !important;
-        height: 300px !important;
+        width: 380px !important;
+        height: 380px !important;
       }
       
       .circle-label {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
+      }
+      
+      /* Aumentar textos en SVG para mejor legibilidad */
+      svg text {
+        font-size: 1.1rem !important;
+      }
+      
+      /* Ajustar estilos específicos de SVG */
+      svg circle {
+        stroke-width: 3 !important;
+      }
+      
+      svg line {
+        stroke-width: 3 !important;
       }
       
       .content-section {
@@ -941,35 +962,35 @@
     
     @media(max-width: 480px) {
       .diagram-container {
-        min-height: 350px;
+        min-height: 400px;
       }
       
       .circles {
-        width: 300px !important;
-        height: 300px !important;
+        width: 380px !important;
+        height: 380px !important;
       }
       
       .circle-label {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
         font-weight: 700;
         letter-spacing: 0.02em;
       }
       
       svg circle {
-        stroke-width: 2.5 !important;
+        stroke-width: 3 !important;
       }
       
       .diagram-svg {
         max-width: 100% !important;
-        margin: 2rem 0 !important;
+        margin: 2.5rem 0 !important;
       }
       
       .diagram-svg text {
-        font-size: 1.05rem !important;
+        font-size: 1.1rem !important;
       }
       
       .diagram-svg line {
-        stroke-width: 2.5 !important;
+        stroke-width: 3 !important;
       }
     }
     
