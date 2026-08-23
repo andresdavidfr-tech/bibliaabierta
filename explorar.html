@@ -1698,43 +1698,42 @@
           source: 'La Biblia Abierta - Explorar'
         };
         
+        // URL de tu Google Apps Script desplegado como Web App (ver
+        // google-apps-script.gs para instrucciones de instalación).
+        // Reemplaza este placeholder por la URL real que termina en /exec
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/REEMPLAZAR_CON_TU_ID_DE_DESPLIEGUE/exec';
+        
         try {
-          // Enviar a FormSubmit (servicio gratuito de formularios)
-          const response = await fetch('https://formspree.io/f/xyzajkqb', {
+          // Enviar a Google Sheets vía Apps Script.
+          // mode: 'no-cors' es necesario porque los Web Apps de Apps Script
+          // no devuelven headers CORS legibles para fetch entre dominios;
+          // esto significa que no podemos leer response.ok, pero el envío
+          // sí llega a la hoja. Si fetch no lanza error, asumimos éxito.
+          await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
-              'Content-Type': 'application/json',
+              'Content-Type': 'text/plain',
             },
             body: JSON.stringify(data)
           });
           
-          if (response.ok) {
-            // Mostrar mensaje de éxito
-            formSuccess.classList.add('show');
-            registrationForm.style.display = 'none';
-            
-            // Limpiar formulario
-            registrationForm.reset();
-            
-            // Mostrar formulario de nuevo después de 5 segundos
-            setTimeout(() => {
-              registrationForm.style.display = 'block';
-              formSuccess.classList.remove('show');
-            }, 5000);
-          } else {
-            alert('Hubo un error al enviar tu registro. Por favor intenta de nuevo.');
-          }
-        } catch (error) {
-          // Si no funciona FormSubmit, mostrar mensaje local
-          console.log('Datos del formulario:', data);
+          // Mostrar mensaje de éxito
           formSuccess.classList.add('show');
           registrationForm.style.display = 'none';
+          
+          // Limpiar formulario
+          registrationForm.reset();
           
           // Mostrar formulario de nuevo después de 5 segundos
           setTimeout(() => {
             registrationForm.style.display = 'block';
             formSuccess.classList.remove('show');
           }, 5000);
+        } catch (error) {
+          // Si falla la conexión, mostrar mensaje local igualmente
+          console.log('Datos del formulario:', data);
+          alert('Hubo un error al enviar tu registro. Por favor intenta de nuevo o contáctanos directamente.');
         }
       });
     }
