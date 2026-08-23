@@ -497,6 +497,7 @@
       padding: 1.5rem;
       border-left: 3px solid var(--sage);
       border-radius: 2px;
+      text-align: center;
     }
     
     /* CALL TO ACTION */
@@ -1584,8 +1585,13 @@
         </div>
         
         <div class="form-group">
-          <label for="country">País *</label>
-          <input type="text" id="country" name="country" required placeholder="Tu país">
+          <label for="city">Ciudad *</label>
+          <input type="text" id="city" name="city" required placeholder="Tu ciudad">
+        </div>
+        
+        <div class="form-group">
+          <label for="province">Provincia *</label>
+          <input type="text" id="province" name="province" required placeholder="Tu provincia">
         </div>
         
         <div class="form-group">
@@ -1676,7 +1682,8 @@
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
-        const country = document.getElementById('country').value;
+        const city = document.getElementById('city').value;
+        const province = document.getElementById('province').value;
         const message = document.getElementById('message').value;
         
         // Preparar datos para envío
@@ -1684,7 +1691,8 @@
           name,
           email,
           phone,
-          country,
+          city,
+          province,
           message,
           timestamp: new Date().toISOString(),
           source: 'La Biblia Abierta - Explorar'
