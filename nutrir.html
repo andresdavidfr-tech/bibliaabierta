@@ -167,6 +167,13 @@
       flex: 1;
     }
     
+    .toc-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      color: var(--slate);
+      margin-top: 0.2rem;
+    }
+    
     .toc-toggle-icon {
       width: 28px;
       height: 28px;
@@ -184,52 +191,57 @@
     }
     
     .toc-items {
-      padding: 0;
-      max-height: 800px;
+      padding: 1.3rem 1.5rem;
+      max-height: 600px;
       overflow: hidden;
       transition: max-height .3s ease, padding .3s ease;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+      gap: 0.7rem;
     }
     
     .table-of-contents.collapsed .toc-items {
       max-height: 0;
-      padding: 0;
+      padding: 0 1.5rem;
     }
     
     .toc-item {
-      padding: 1.2rem 1.5rem;
-      border-bottom: 1px solid rgba(26, 58, 82, 0.08);
-      cursor: pointer;
+      aspect-ratio: 1;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      transition: background .2s;
-      min-height: 50px;
+      justify-content: center;
+      background: var(--white);
+      border: 1px solid rgba(26, 58, 82, 0.12);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, transform .15s;
       touch-action: manipulation;
-    }
-    
-    .toc-item:last-child {
-      border-bottom: none;
+      min-height: 48px;
     }
     
     .toc-item:active {
-      background: rgba(107, 142, 113, 0.08);
+      transform: scale(0.94);
+      background: rgba(107, 142, 113, 0.12);
     }
     
     .toc-item:hover {
-      background: rgba(107, 142, 113, 0.05);
+      border-color: var(--sage);
     }
     
     .toc-label {
       font-family: 'Inter', sans-serif;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--navy);
-      font-size: 0.95rem;
-      flex: 1;
+      font-size: 1rem;
+    }
+    
+    .toc-item.open {
+      background: var(--sage);
+      border-color: var(--sage);
     }
     
     .toc-item.open .toc-label {
-      color: var(--sage);
-      font-weight: 600;
+      color: var(--white);
     }
     
     /* SECCIONES DE CONTENIDO */
@@ -646,13 +658,11 @@
       }
       
       .toc-item {
-        padding: 1rem 1.2rem;
-        font-size: 0.9rem;
-        min-height: 48px;
+        min-height: 44px;
       }
       
       .toc-label {
-        font-size: 0.85rem;
+        font-size: 0.95rem;
       }
       
       /* Secciones móvil */
@@ -752,9 +762,7 @@
       }
       
       .toc-item {
-        padding: 1rem 1rem;
-        font-size: 0.95rem;
-        min-height: 48px;
+        min-height: 44px;
       }
       
       .toc-label {
@@ -831,14 +839,6 @@
     
     /* MEJORAS DE TOQUE PARA MÓVIL */
     @media(hover: none) and (pointer: coarse) {
-      .toc-item {
-        padding: 1.2rem;
-      }
-      
-      .section-nav button {
-        min-height: 48px;
-      }
-      
       .toc-item:active {
         background: rgba(107, 142, 113, 0.1);
       }
@@ -872,7 +872,10 @@
     <!-- TABLA DE CONTENIDOS INTERACTIVA DESPLEGABLE -->
     <div class="table-of-contents" id="toc-container">
       <div class="toc-header" id="toc-header">
-        <h3>Tabla de Contenidos</h3>
+        <div>
+          <h3>Tabla de Contenidos</h3>
+          <div class="toc-subtitle">Toca un nivel para ver su contenido</div>
+        </div>
         <div class="toc-toggle-icon">▼</div>
       </div>
       <div class="toc-items" id="toc-items"></div>
@@ -1926,8 +1929,11 @@
       const tocItem = document.createElement('div');
       tocItem.className = 'toc-item';
       tocItem.innerHTML = `
-        <span class="toc-label">${section.title}</span>
+        <span class="toc-label">${index + 1}</span>
       `;
+      tocItem.setAttribute('title', section.title);
+      tocItem.setAttribute('role', 'button');
+      tocItem.setAttribute('aria-label', section.title);
       tocItem.addEventListener('click', () => {
         // Cambiar la sección activa
         document.querySelectorAll('.content-section').forEach((s, i) => {
