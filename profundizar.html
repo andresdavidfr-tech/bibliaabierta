@@ -142,6 +142,119 @@
       text-align: left;
     }
     
+    /* TARJETA: ESTUDIO ACTUAL DESTACADO */
+    .current-study {
+      margin-top: -0.5rem;
+      margin-bottom: 3rem;
+      padding: 2rem 2.2rem;
+      background: var(--white);
+      border: 2px solid var(--purple);
+      border-radius: 6px;
+    }
+    
+    .current-study-eyebrow {
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--purple);
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+    
+    .current-study h3 {
+      font-family: 'Fraunces', serif;
+      text-align: center;
+      color: var(--navy);
+      line-height: 1.3;
+    }
+    
+    .current-study h3 .study-book {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    
+    .current-study h3 .study-kind {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--slate);
+      margin-top: 0.2rem;
+    }
+    
+    .current-study-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--navy);
+      margin: 1rem 0 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .current-study-meta svg {
+      width: 1.1em;
+      height: 1.1em;
+      flex-shrink: 0;
+    }
+    
+    .current-study-divider {
+      border: none;
+      border-top: 1px solid var(--cream);
+      margin: 1.5rem 0;
+    }
+    
+    .current-study-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+    }
+    
+    .current-study-list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+    
+    .current-study-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+      color: var(--navy);
+      line-height: 1.6;
+      margin-bottom: 0.6rem;
+    }
+    
+    .current-study-list li:last-child {
+      margin-bottom: 0;
+    }
+    
+    .current-study-list svg {
+      width: 1.1em;
+      height: 1.1em;
+      flex-shrink: 0;
+      margin-top: 0.2em;
+      color: var(--purple);
+    }
+    
+    .current-study-invite {
+      font-size: 0.88rem;
+      color: var(--slate);
+      text-align: center;
+      padding-top: 1.3rem;
+      border-top: 1px solid var(--cream);
+    }
+    
+    .current-study-invite strong {
+      color: var(--purple);
+    }
+    
     /* SECCIONES DE CONTENIDO */
     .content-section {
       margin-bottom: 3rem;
@@ -315,6 +428,18 @@
         padding: 1.5rem;
       }
       
+      .current-study {
+        padding: 1.5rem 1.3rem;
+      }
+      
+      .current-study h3 .study-book {
+        font-size: 1.3rem;
+      }
+      
+      .current-study-meta {
+        font-size: 0.85rem;
+      }
+      
       .section-title {
         font-size: 1.3rem;
       }
@@ -392,6 +517,51 @@
         <span class="highlight">programas radiales</span>. Únete a nuestro grupo de WhatsApp para 
         recibir los horarios de transmisión y conectarte con otros que crecen en este mismo caminar.
       </p>
+    </div>
+
+    <!-- TARJETA: ESTUDIO ACTUAL DESTACADO -->
+    <div class="current-study">
+      <div class="current-study-eyebrow">Actualmente en Estudio</div>
+      <h3>
+        <span class="study-kind">Estudio-Vida de</span>
+        <span class="study-book">Evangelio de Marcos</span>
+        <span class="study-kind">Programa radial</span>
+      </h3>
+      <div class="current-study-meta">
+        Inicio 17 de agosto · Por WhatsApp
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path fill="#25D366" d="M16 2C23.18 2 29 7.82 29 15C29 22.18 23.18 28 16 28C13.4 28 10.98 27.24 8.95 25.93L3.5 27.8C3.1 27.94 2.68 27.62 2.75 27.2L3.9 21.55C2.7 19.6 2 17.38 2 15C2 7.82 7.82 2 16 2Z"/>
+          <path fill="#ffffff" d="M23.47 19.14c-.36-.18-2.13-1.05-2.46-1.17-.33-.12-.57-.18-.81.18-.24.36-.93 1.17-1.14 1.41-.21.24-.42.27-.78.09-.36-.18-1.52-.56-2.9-1.79-1.07-.96-1.79-2.14-2-2.5-.21-.36-.02-.55.16-.73.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.81-1.95-1.11-2.67-.29-.7-.59-.6-.81-.61-.21-.01-.45-.01-.69-.01-.24 0-.63.09-.96.45-.33.36-1.26 1.23-1.26 3s1.29 3.48 1.47 3.72c.18.24 2.54 3.88 6.16 5.44.86.37 1.53.59 2.05.76.86.27 1.65.23 2.27.14.69-.1 2.13-.87 2.43-1.71.3-.84.3-1.56.21-1.71-.09-.15-.33-.24-.69-.42Z"/>
+        </svg>
+      </div>
+
+      <hr class="current-study-divider">
+
+      <p class="section-text" style="text-align: center; font-size: 0.95rem;">
+        El contenido de estos estudios es de gran valor espiritual y te ayudará a tener un 
+        contacto vivo con Dios en la Biblia.
+      </p>
+
+      <div class="current-study-label">Recibirás de lunes a viernes:</div>
+      <ul class="current-study-list">
+        <li>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 10.5l4 4 8-9"/></svg>
+          Audio con el mensaje del día.
+        </li>
+        <li>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 10.5l4 4 8-9"/></svg>
+          Preguntas para reflexionar.
+        </li>
+        <li>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 10.5l4 4 8-9"/></svg>
+          Material de lectura complementaria.
+        </li>
+      </ul>
+
+      <div class="current-study-invite">
+        Para <strong>invitar</strong> a otras personas, solo comparte el enlace del grupo 
+        para que puedan ingresar.
+      </div>
     </div>
 
     <!-- CTA: GRUPO DE WHATSAPP -->
