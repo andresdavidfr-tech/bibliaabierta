@@ -2601,12 +2601,17 @@
         updateNavigationButtons();
         closeTOCOnMobile();
         
-        // Scroll suave hacia el título de la sección desplegada
+        // Scroll suave hacia el título de la sección desplegada.
+        // El retraso (350ms) es intencional: closeTOCOnMobile() colapsa el
+        // panel del índice con una transición CSS de 300ms. Si midiéramos
+        // la posición del título antes de que esa animación termine, el
+        // punto de scroll calculado quedaría desactualizado apenas la
+        // página siga encogiendo, y el título terminaría desalineado.
         const sectionEl = document.getElementById(section.id);
         setTimeout(() => {
           const titleEl = sectionEl.querySelector('.section-title');
           (titleEl || sectionEl).scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+        }, 350);
       });
       tocItem.setAttribute('data-section', section.id);
       tocItemsContainer.appendChild(tocItem);
