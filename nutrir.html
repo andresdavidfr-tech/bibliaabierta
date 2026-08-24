@@ -529,7 +529,6 @@
       margin-bottom: 1.5rem;
       line-height: 1.3;
       text-align: center;
-      scroll-margin-top: 100px;
     }
     
     .section-text {
@@ -2487,6 +2486,47 @@
       }
     }
 
+    // Altura aproximada del nav fijo (padding + logo) más aire, para no
+    // dejar el título tapado detrás de la barra de navegación
+    const NAV_SCROLL_OFFSET = 80;
+
+    // Hace scroll hasta el título del nivel indicado. En vez de confiar en
+    // un temporizador fijo (que puede desalinearse si el colapso del TOC o
+    // la carga de fuentes web todavía están reacomodando el layout),
+    // calcula la posición manualmente después de que el layout esté
+    // realmente asentado:
+    //   1. Si el panel del TOC se está colapsando, espera al evento real
+    //      'transitionend' (con un salvavidas por si no llega a disparar).
+    //   2. Espera dos frames de animación (requestAnimationFrame anidado)
+    //      para asegurar que el navegador ya aplicó y pintó el layout.
+    //   3. Mide la posición real del título con getBoundingClientRect()
+    //      y hace scroll a ese punto exacto, restando el alto del nav.
+    function scrollToLevelTitle(sectionEl) {
+      function measureAndScroll() {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const titleEl = sectionEl.querySelector('.section-title') || sectionEl;
+            const rect = titleEl.getBoundingClientRect();
+            const targetY = window.scrollY + rect.top - NAV_SCROLL_OFFSET;
+            window.scrollTo({ top: Math.max(targetY, 0), behavior: 'smooth' });
+          });
+        });
+      }
+
+      if (tocContainer.classList.contains('collapsed')) {
+        let done = false;
+        const finish = () => {
+          if (done) return;
+          done = true;
+          measureAndScroll();
+        };
+        tocContainer.addEventListener('transitionend', finish, { once: true });
+        setTimeout(finish, 350); // salvavidas si transitionend no dispara
+      } else {
+        measureAndScroll();
+      }
+    }
+
     // Correo de contacto del proyecto para consultas sobre cada nivel
     const CONSULTA_EMAIL = 'andresdavidfr@gmail.com';
 
@@ -2601,17 +2641,9 @@
         updateNavigationButtons();
         closeTOCOnMobile();
         
-        // Scroll suave hacia el título de la sección desplegada.
-        // El retraso (350ms) es intencional: closeTOCOnMobile() colapsa el
-        // panel del índice con una transición CSS de 300ms. Si midiéramos
-        // la posición del título antes de que esa animación termine, el
-        // punto de scroll calculado quedaría desactualizado apenas la
-        // página siga encogiendo, y el título terminaría desalineado.
+        // Scroll hacia el título de la sección desplegada
         const sectionEl = document.getElementById(section.id);
-        setTimeout(() => {
-          const titleEl = sectionEl.querySelector('.section-title');
-          (titleEl || sectionEl).scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 350);
+        scrollToLevelTitle(sectionEl);
       });
       tocItem.setAttribute('data-section', section.id);
       tocItemsContainer.appendChild(tocItem);
