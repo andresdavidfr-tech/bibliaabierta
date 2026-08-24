@@ -270,6 +270,206 @@
       text-align: center;
     }
     
+    /* CUESTIONARIO DE REPASO */
+    .quiz-block {
+      margin-top: 2.5rem;
+      padding: 1.8rem;
+      background: var(--white);
+      border: 1px solid rgba(26, 58, 82, 0.12);
+      border-radius: 4px;
+    }
+    
+    .quiz-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+      text-align: center;
+    }
+    
+    .quiz-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--slate);
+      text-align: center;
+      margin-bottom: 1.6rem;
+    }
+    
+    .quiz-question {
+      margin-bottom: 1.6rem;
+      padding-bottom: 1.6rem;
+      border-bottom: 1px solid rgba(26, 58, 82, 0.08);
+    }
+    
+    .quiz-question:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0;
+    }
+    
+    .quiz-question-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--navy);
+      margin-bottom: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(26, 58, 82, 0.15);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.92rem;
+      color: var(--navy);
+      transition: background .15s, border-color .15s;
+      touch-action: manipulation;
+      min-height: 44px;
+    }
+    
+    .quiz-option:hover {
+      border-color: var(--sage);
+    }
+    
+    .quiz-option-marker {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(26, 58, 82, 0.3);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .quiz-option.selected {
+      background: rgba(107, 142, 113, 0.08);
+      border-color: var(--sage);
+    }
+    
+    .quiz-option.selected .quiz-option-marker {
+      border-color: var(--sage);
+      background: var(--sage);
+    }
+    
+    .quiz-block.checked .quiz-option {
+      cursor: default;
+      pointer-events: none;
+    }
+    
+    .quiz-block.checked .quiz-option.correct-answer {
+      background: rgba(107, 142, 113, 0.15);
+      border-color: var(--sage);
+    }
+    
+    .quiz-block.checked .quiz-option.wrong-answer {
+      background: rgba(196, 90, 90, 0.1);
+      border-color: #c45a5a;
+    }
+    
+    .quiz-block.checked .quiz-option.correct-answer .quiz-option-marker {
+      background: var(--sage);
+      border-color: var(--sage);
+    }
+    
+    .quiz-block.checked .quiz-option.wrong-answer .quiz-option-marker {
+      background: #c45a5a;
+      border-color: #c45a5a;
+    }
+    
+    .quiz-check-btn {
+      display: block;
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.9rem;
+      background: var(--sage);
+      color: var(--white);
+      border: none;
+      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: opacity .2s;
+      min-height: 46px;
+      touch-action: manipulation;
+    }
+    
+    .quiz-check-btn:hover {
+      opacity: 0.9;
+    }
+    
+    .quiz-check-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .quiz-result {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.9rem;
+      border-radius: 3px;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: rgba(107, 142, 113, 0.1);
+      color: var(--navy);
+    }
+    
+    .quiz-result.show {
+      display: block;
+    }
+    
+    /* BOTÓN DE CONSULTA */
+    .consulta-block {
+      margin-top: 1.8rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid rgba(26, 58, 82, 0.1);
+      text-align: center;
+    }
+    
+    .consulta-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--slate);
+      margin-bottom: 0.9rem;
+    }
+    
+    .consulta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.6rem;
+      background: var(--white);
+      color: var(--navy);
+      border: 1px solid var(--navy);
+      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+      min-height: 46px;
+      touch-action: manipulation;
+    }
+    
+    .consulta-btn:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+    
     /* NAVEGACIÓN ENTRE SECCIONES */
     .section-nav {
       display: flex;
@@ -575,6 +775,28 @@
     }
     
     @media(max-width: 480px) {
+      .quiz-block {
+        padding: 1.3rem;
+      }
+      
+      .quiz-title {
+        font-size: 1.05rem;
+      }
+      
+      .quiz-question-text {
+        font-size: 0.9rem;
+      }
+      
+      .quiz-option {
+        font-size: 0.88rem;
+        padding: 0.7rem 0.85rem;
+      }
+      
+      .consulta-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
       .prayer-cta {
         padding: 1.5rem;
         margin: 2rem 0;
@@ -900,6 +1122,23 @@
     const sections = [
       {
         id: "certeza-salvacion",
+        quiz: [
+          {
+            q: "Según la Biblia, ¿cuándo eres salvo?",
+            options: ["Cuando mueras", "En el momento en que crees", "Cuando te bautizas", "Después de años de buena conducta"],
+            correct: 1
+          },
+          {
+            q: "Según 1 Juan 5:13, ¿en qué se basa la certeza de tu salvación?",
+            options: ["En tus sentimientos", "En la opinión de otros", "En la Palabra de Dios", "En tus buenas obras"],
+            correct: 2
+          },
+          {
+            q: "¿Cuál de estas NO es una de las tres realidades de tu salvación inmediata mencionadas en este nivel?",
+            options: ["Redimidos", "Regenerados", "Pasar de muerte a vida", "Glorificados"],
+            correct: 3
+          }
+        ],
         title: "Nivel 1: La Certeza y Seguridad de la Salvación",
         content: `
           <p class="section-text">
@@ -982,6 +1221,23 @@
       },
       {
         id: "bautismo",
+        quiz: [
+          {
+            q: "¿Qué representa salir del agua en el bautismo?",
+            options: ["Un ritual sin significado", "Tu nuevo vivir en Cristo", "Tu conversión al judaísmo", "Una fiesta social"],
+            correct: 1
+          },
+          {
+            q: "Según Mateo 28:19, ¿en el nombre de quién(es) se bautiza?",
+            options: ["Solo del Padre", "Del Padre, el Hijo y el Espíritu Santo", "Solo de Jesús", "De los apóstoles"],
+            correct: 1
+          },
+          {
+            q: "El bautismo es principalmente:",
+            options: ["Un requisito para ser salvo", "Una declaración externa de fe interna", "Un examen religioso", "Algo opcional sin importancia"],
+            correct: 1
+          }
+        ],
         title: "Nivel 2: El Bautismo",
         content: `
           <p class="section-text">
@@ -1020,6 +1276,23 @@
       },
       {
         id: "espiritu-mezclado",
+        quiz: [
+          {
+            q: "Según 1 Corintios 6:17, el que se une al Señor:",
+            options: ["Recibe solo bendiciones materiales", "Un espíritu es con Él", "Se vuelve perfecto instantáneamente", "Deja de tener espíritu propio"],
+            correct: 1
+          },
+          {
+            q: "¿Para qué fue creado el espíritu del hombre, según este nivel?",
+            options: ["Para pensar mejor", "Para contactar y contener a Dios", "Para controlar el cuerpo", "Para la vida social"],
+            correct: 1
+          },
+          {
+            q: "¿Qué sucede en tu espíritu cuando crees en Jesús?",
+            options: ["Nada cambia hasta la muerte", "Es regenerado por Cristo como Espíritu vivificante", "Se separa del cuerpo", "Se vuelve invisible"],
+            correct: 1
+          }
+        ],
         title: "Nivel 3: El Espíritu Mezclado",
         content: `
           <p class="section-text">
@@ -1103,6 +1376,23 @@
       },
       {
         id: "invocar-nombre",
+        quiz: [
+          {
+            q: "Según Romanos 10:13, ¿qué sucede a todo aquel que invoca el nombre del Señor?",
+            options: ["Será salvo", "Recibirá riquezas", "Se hará perfecto", "Nada en particular"],
+            correct: 0
+          },
+          {
+            q: "Invocar el nombre de Jesús es descrito como:",
+            options: ["Una fórmula mágica", "Una conexión genuina con el Señor vivo", "Algo solo para emergencias", "Innecesario para creyentes maduros"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál es la forma sencilla sugerida para comenzar a invocar el nombre del Señor?",
+            options: ["Memorizar oraciones largas", "Decir \"Señor Jesús\" con el corazón", "Esperar una señal especial", "Consultar primero a un sacerdote"],
+            correct: 1
+          }
+        ],
         title: "Nivel 4: Invocar el Nombre del Señor",
         content: `
           <p class="section-text">
@@ -1142,6 +1432,23 @@
       },
       {
         id: "palabra-vida",
+        quiz: [
+          {
+            q: "Según este nivel, ¿qué es la Biblia además de un libro de doctrinas?",
+            options: ["Un manual de historia", "El árbol de la vida", "Un libro de leyes únicamente", "Una colección de poesía"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál es la manera INTERNA de tomar la Biblia, la que trae vida?",
+            options: ["Debatir su significado intelectualmente", "Ejercitar el espíritu para tocar la Palabra vivamente", "Memorizarla sin comprenderla", "Ignorarla"],
+            correct: 1
+          },
+          {
+            q: "Según 1 Pedro 2:2-3, ¿qué se nos invita a hacer con la leche de la Palabra?",
+            options: ["Estudiarla académicamente", "Gustarla", "Memorizarla palabra por palabra", "Traducirla"],
+            correct: 1
+          }
+        ],
         title: "Nivel 5: La Palabra de Vida",
         content: `
           <p class="section-text">
@@ -1236,6 +1543,23 @@
       },
       {
         id: "orar-leer",
+        quiz: [
+          {
+            q: "Orar-leer la Palabra combina:",
+            options: ["Ayuno y meditación", "Lectura de la Biblia y oración", "Canto y baile", "Debate teológico"],
+            correct: 1
+          },
+          {
+            q: "Según los pasos sugeridos, ¿qué se recomienda hacer después de leer despacio?",
+            options: ["Cerrar la Biblia", "Invocar el nombre del Señor", "Buscar otro pasaje de inmediato", "Discutir con otros"],
+            correct: 1
+          },
+          {
+            q: "Orar-leer la Palabra es descrito principalmente como:",
+            options: ["Un estudio académico", "Una comunión espiritual íntima", "Una obligación religiosa", "Un examen de memoria"],
+            correct: 1
+          }
+        ],
         title: "Nivel 6: Orar-Leer la Palabra",
         content: `
           <p class="section-text">
@@ -1272,6 +1596,23 @@
       },
       {
         id: "terminar-pasado",
+        quiz: [
+          {
+            q: "¿Es terminar con el pasado un requisito para ser salvo?",
+            options: ["Sí, es obligatorio para la salvación", "No, la salvación es perfecta y completa por la sangre de Cristo", "Solo para pecados graves", "Depende de la iglesia local"],
+            correct: 1
+          },
+          {
+            q: "¿Qué es lo que realmente mueve a un creyente a terminar con su pasado?",
+            options: ["Reglas externas de la iglesia", "El mover interno del Espíritu Santo", "La presión social", "El temor al castigo"],
+            correct: 1
+          },
+          {
+            q: "¿Qué ejemplo bíblico de restitución se menciona en este nivel?",
+            options: ["Moisés", "Zaqueo", "David", "Pedro"],
+            correct: 1
+          }
+        ],
         title: "Nivel 7: Terminar con el Pasado",
         content: `
           <p class="section-text">
@@ -1342,6 +1683,23 @@
       },
       {
         id: "consagracion",
+        quiz: [
+          {
+            q: "Según Romanos 12:1, ¿qué se nos pide presentar a Dios?",
+            options: ["Solo nuestras oraciones", "Nuestros cuerpos en sacrificio vivo", "Solo nuestro dinero", "Nuestros logros"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál de estas NO se menciona como área de consagración en este nivel?",
+            options: ["Tu tiempo", "Tu dinero", "Tus talentos", "Tu nacionalidad"],
+            correct: 3
+          },
+          {
+            q: "La consagración es descrita en este nivel como:",
+            options: ["Opcional para creyentes avanzados", "El corazón de la vida cristiana madura", "Un ritual único al convertirse", "Solo para líderes de iglesia"],
+            correct: 1
+          }
+        ],
         title: "Nivel 8: La Consagración",
         content: `
           <p class="section-text">
@@ -1385,6 +1743,23 @@
       },
       {
         id: "medidas-pecados",
+        quiz: [
+          {
+            q: "¿Cuáles son las tres relaciones que se deben abordar al tomar medidas con los pecados?",
+            options: ["Otros, Dios, y el pecado mismo", "Solo Dios", "Solo otros", "La ley civil, la iglesia y la familia"],
+            correct: 0
+          },
+          {
+            q: "Según 1 Juan 1:9, ¿qué hace Dios cuando confesamos nuestros pecados?",
+            options: ["Nos ignora", "Es fiel y justo para perdonarnos y limpiarnos", "Nos castiga primero", "Espera a que nos bauticemos"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál es el fundamento para saber qué pecados confesar, según este nivel?",
+            options: ["Confesar absolutamente todo lo que recuerdes de toda tu vida de una vez", "La conciencia que adquieres al estar en comunión con Dios", "Lo que otros te digan que confieses", "Un listado fijo de pecados"],
+            correct: 1
+          }
+        ],
         title: "Nivel 9: Tomar Medidas con Respecto a los Pecados",
         content: `
           <p class="section-text">
@@ -1466,6 +1841,23 @@
       },
       {
         id: "medidas-mundo",
+        quiz: [
+          {
+            q: "Según 1 Juan 2:15, ¿qué se nos advierte no amar?",
+            options: ["A nuestra familia", "Al mundo ni las cosas que están en el mundo", "Al trabajo", "A la iglesia"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál es la actitud recomendada frente al mundo, según este nivel?",
+            options: ["Separarse completamente de la sociedad", "Ser sabio e intencional", "Ignorar toda precaución", "Adoptar toda tendencia cultural"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál de estas NO se menciona como área de precaución en este nivel?",
+            options: ["El entretenimiento", "Las relaciones románticas", "El dinero y las posesiones", "El bautismo"],
+            correct: 3
+          }
+        ],
         title: "Nivel 10: Tomar Medidas con Respecto al Mundo",
         content: `
           <p class="section-text">
@@ -1506,6 +1898,23 @@
       },
       {
         id: "cuerpo-cristo",
+        quiz: [
+          {
+            q: "Según 1 Corintios 12:27, ¿qué son los creyentes?",
+            options: ["Empleados de Dios", "El cuerpo de Cristo, miembros de ese cuerpo", "Simples espectadores", "Enemigos convertidos"],
+            correct: 1
+          },
+          {
+            q: "¿Quién es la cabeza del Cuerpo de Cristo?",
+            options: ["El pastor local", "Cristo", "Cada creyente individualmente", "Los apóstoles"],
+            correct: 1
+          },
+          {
+            q: "¿Por qué es importante encontrar tu lugar en el Cuerpo de Cristo, según este nivel?",
+            options: ["Es opcional y sin relevancia", "Es esencial para tu crecimiento espiritual", "Solo importa para los líderes", "Es un requisito legal"],
+            correct: 1
+          }
+        ],
         title: "Nivel 11: El Cuerpo de Cristo",
         content: `
           <p class="section-text">
@@ -1547,6 +1956,23 @@
       },
       {
         id: "vida-reuniones",
+        quiz: [
+          {
+            q: "Según Hebreos 10:24-25, ¿qué se nos exhorta a no dejar de hacer?",
+            options: ["Congregarnos", "Trabajar", "Descansar", "Viajar"],
+            correct: 0
+          },
+          {
+            q: "¿Cuál de estas NO se menciona como tipo de reunión en este nivel?",
+            options: ["Reunión principal de la iglesia", "Reunión de grupo pequeño", "Reunión de oración", "Reunión de negocios"],
+            correct: 3
+          },
+          {
+            q: "Según este nivel, tu crecimiento espiritual depende de:",
+            options: ["Solo tu tiempo a solas con Dios", "La comunión con otros creyentes", "Tu conocimiento bíblico académico", "Tu posición social en la iglesia"],
+            correct: 1
+          }
+        ],
         title: "Nivel 12: La Vida de Reuniones",
         content: `
           <p class="section-text">
@@ -1585,6 +2011,23 @@
       },
       {
         id: "servir-senor",
+        quiz: [
+          {
+            q: "Según 1 Pedro 4:10, ¿qué debes hacer con el don que recibiste?",
+            options: ["Guardarlo para ti mismo", "Ministrarlo a los otros", "Venderlo", "Ignorarlo"],
+            correct: 1
+          },
+          {
+            q: "¿Necesitas ser un líder ordenado para servir, según este nivel?",
+            options: ["Sí, es obligatorio", "No, cada creyente tiene un ministerio específico", "Solo si tienes estudios teológicos", "Solo los ancianos pueden servir"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál de estas se menciona como forma de servir en este nivel?",
+            options: ["El discipulado", "La política", "El comercio", "El deporte"],
+            correct: 0
+          }
+        ],
         title: "Nivel 13: Servir al Señor",
         content: `
           <p class="section-text">
@@ -1625,6 +2068,23 @@
       },
       {
         id: "conocer-dios",
+        quiz: [
+          {
+            q: "Según Juan 17:3, ¿qué es la vida eterna?",
+            options: ["Vivir muchos años", "Conocer al único Dios verdadero y a Jesucristo", "Tener riquezas", "Ser famoso"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál de estos NO es uno de los atributos de Dios mencionados en este nivel?",
+            options: ["Omnipotente", "Omnisciente", "Cambiante", "Santo"],
+            correct: 2
+          },
+          {
+            q: "Conocer los atributos de Dios te da, según este nivel:",
+            options: ["Más responsabilidades religiosas", "Confianza en cualquier circunstancia", "Menos necesidad de orar", "Independencia de la iglesia"],
+            correct: 1
+          }
+        ],
         title: "Nivel 14: Dios",
         content: `
           <p class="section-text">
@@ -1665,6 +2125,23 @@
       },
       {
         id: "conocer-cristo",
+        quiz: [
+          {
+            q: "Según Filipenses 1:21, ¿qué es Cristo para el creyente?",
+            options: ["Solo un ejemplo moral", "El vivir mismo del creyente", "Un profeta más", "Un concepto filosófico"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál de estos NO es un aspecto de Cristo mencionado en este nivel?",
+            options: ["Encarnación", "Redención", "Reencarnación", "Resurrección"],
+            correct: 2
+          },
+          {
+            q: "¿Qué venció Cristo en Su resurrección, según este nivel?",
+            options: ["Solo a Sus enemigos humanos", "La muerte", "El tiempo", "La ley romana"],
+            correct: 1
+          }
+        ],
         title: "Nivel 15: Cristo",
         content: `
           <p class="section-text">
@@ -1704,6 +2181,23 @@
       },
       {
         id: "conocer-espiritu",
+        quiz: [
+          {
+            q: "Según Juan 14:26, ¿quién enviará el Padre en el nombre de Jesús?",
+            options: ["Un ángel", "El Consolador, el Espíritu Santo", "Otro profeta", "Un rey"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál de estos NO se menciona como trabajo del Espíritu Santo en este nivel?",
+            options: ["Regeneración", "Guía", "Juicio final", "Transformación"],
+            correct: 2
+          },
+          {
+            q: "¿Cómo se comunica el Espíritu Santo, según este nivel?",
+            options: ["Solo mediante sueños", "A través de la Palabra, la oración y la convicción interna", "Únicamente por medio de otras personas", "No se comunica de forma perceptible"],
+            correct: 1
+          }
+        ],
         title: "Nivel 16: El Espíritu",
         content: `
           <p class="section-text">
@@ -1744,6 +2238,23 @@
       },
       {
         id: "creyentes",
+        quiz: [
+          {
+            q: "Según Juan 13:34, ¿qué mandamiento nuevo dio Jesús?",
+            options: ["Que os améis unos a otros", "Que ayunéis cada semana", "Que prediquéis en público", "Que memoricéis la ley"],
+            correct: 0
+          },
+          {
+            q: "¿Cómo se describe la relación entre creyentes en este nivel?",
+            options: ["Como una familia espiritual", "Como una competencia", "Como una relación comercial", "Como algo opcional"],
+            correct: 0
+          },
+          {
+            q: "Según este nivel, la vida cristiana:",
+            options: ["Fue hecha para vivirse en soledad", "No fue hecha para ser vivida en soledad", "Es exclusivamente individual", "No requiere de otros creyentes"],
+            correct: 1
+          }
+        ],
         title: "Nivel 17: Los Creyentes",
         content: `
           <p class="section-text">
@@ -1784,6 +2295,23 @@
       },
       {
         id: "iglesia",
+        quiz: [
+          {
+            q: "Según Mateo 16:18, ¿qué declaró Jesús sobre Su iglesia?",
+            options: ["Que sería destruida fácilmente", "Que las puertas del Hades no prevalecerán contra ella", "Que sería solo temporal", "Que no la necesitaría"],
+            correct: 1
+          },
+          {
+            q: "¿Sobre qué está edificada la iglesia como edificio espiritual, según este nivel?",
+            options: ["Sobre tradiciones humanas", "Sobre Cristo como la piedra angular", "Sobre un edificio físico", "Sobre un líder humano"],
+            correct: 1
+          },
+          {
+            q: "¿Qué se recomienda hacer respecto a la iglesia local, según este nivel?",
+            options: ["Evitarla si tiene defectos", "Comprometerte con ella", "Visitarla solo ocasionalmente", "Buscar la iglesia \"perfecta\""],
+            correct: 1
+          }
+        ],
         title: "Nivel 18: La Iglesia",
         content: `
           <p class="section-text">
@@ -1824,6 +2352,23 @@
       },
       {
         id: "reino",
+        quiz: [
+          {
+            q: "Según Juan 18:36, ¿cómo describió Jesús Su reino?",
+            options: ["Un reino de este mundo", "Un reino que no es de este mundo", "Un imperio político", "Una monarquía terrenal"],
+            correct: 1
+          },
+          {
+            q: "¿Cuándo comenzó el reino de Dios, según este nivel?",
+            options: ["Comenzará solo en el futuro", "Ya está presente, comenzó cuando Cristo vino", "Nunca ha comenzado", "Comenzó solo con el Antiguo Testamento"],
+            correct: 1
+          },
+          {
+            q: "¿Cómo entra un creyente al reino de Dios, según este nivel?",
+            options: ["Naciendo en una familia cristiana", "Al recibir a Cristo", "Por buenas obras exclusivamente", "Por herencia cultural"],
+            correct: 1
+          }
+        ],
         title: "Nivel 19: El Reino",
         content: `
           <p class="section-text">
@@ -1864,6 +2409,23 @@
       },
       {
         id: "nueva-jerusalen",
+        quiz: [
+          {
+            q: "Según Apocalipsis 21:2, ¿de dónde desciende la Nueva Jerusalén?",
+            options: ["De la tierra", "Del cielo, de parte de Dios", "Del mar", "De ninguna parte, ya existe en la tierra"],
+            correct: 1
+          },
+          {
+            q: "¿Cuál de estas NO describe a la Nueva Jerusalén según este nivel?",
+            options: ["Morada de Dios", "Sin dolor ni muerte", "Un lugar temporal", "Comunión directa con Dios"],
+            correct: 2
+          },
+          {
+            q: "Según este nivel, ¿cómo se describe tu futuro con Dios en contraste con lo que enfrentas ahora?",
+            options: ["Ambos son igual de importantes", "Todo lo que enfrentas ahora es temporal", "El presente es más importante que el futuro", "No hay relación entre ambos"],
+            correct: 1
+          }
+        ],
         title: "Nivel 20: La Nueva Jerusalén",
         content: `
           <p class="section-text">
@@ -1924,6 +2486,97 @@
       }
     }
 
+    // Correo de contacto del proyecto para consultas sobre cada nivel
+    const CONSULTA_EMAIL = 'andresdavidfr@gmail.com';
+
+    function buildConsultaMailto(section) {
+      const subject = encodeURIComponent(`Consulta sobre ${section.title} - La Biblia Abierta`);
+      const body = encodeURIComponent(
+        `Hola,\n\nTengo una duda sobre el ${section.title}:\n\n[Escribe aquí tu consulta]\n\nGracias.`
+      );
+      return `mailto:${CONSULTA_EMAIL}?subject=${subject}&body=${body}`;
+    }
+
+    // Genera el HTML del cuestionario de repaso (3 preguntas) de un nivel
+    function renderQuizHTML(section) {
+      if (!section.quiz || section.quiz.length === 0) return '';
+
+      const questionsHTML = section.quiz.map((item, qIndex) => `
+        <div class="quiz-question">
+          <div class="quiz-question-text">${qIndex + 1}. ${item.q}</div>
+          <div class="quiz-options">
+            ${item.options.map((opt, optIndex) => `
+              <div class="quiz-option" 
+                   data-q="${qIndex}" 
+                   data-opt="${optIndex}"
+                   onclick="selectQuizOption('${section.id}', ${qIndex}, ${optIndex})">
+                <span class="quiz-option-marker"></span>
+                <span>${opt}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      return `
+        <div class="quiz-block" id="quiz-${section.id}" data-answers="${section.quiz.map(i => i.correct).join(',')}">
+          <div class="quiz-title">📝 Repasa lo Aprendido</div>
+          <div class="quiz-subtitle">Responde estas 3 preguntas para afianzar tus conocimientos</div>
+          ${questionsHTML}
+          <button class="quiz-check-btn" onclick="checkQuiz('${section.id}')">Verificar Respuestas</button>
+          <div class="quiz-result" id="quiz-result-${section.id}"></div>
+        </div>
+      `;
+    }
+
+    // Guarda la opción seleccionada por el usuario para una pregunta
+    function selectQuizOption(sectionId, qIndex, optIndex) {
+      const quizBlock = document.getElementById(`quiz-${sectionId}`);
+      if (quizBlock.classList.contains('checked')) return;
+
+      const options = quizBlock.querySelectorAll(`.quiz-option[data-q="${qIndex}"]`);
+      options.forEach(opt => opt.classList.remove('selected'));
+      const chosen = quizBlock.querySelector(`.quiz-option[data-q="${qIndex}"][data-opt="${optIndex}"]`);
+      chosen.classList.add('selected');
+    }
+
+    // Verifica las respuestas seleccionadas contra las correctas
+    function checkQuiz(sectionId) {
+      const quizBlock = document.getElementById(`quiz-${sectionId}`);
+      const correctAnswers = quizBlock.getAttribute('data-answers').split(',').map(Number);
+      const totalQuestions = correctAnswers.length;
+      let correctCount = 0;
+
+      for (let qIndex = 0; qIndex < totalQuestions; qIndex++) {
+        const selected = quizBlock.querySelector(`.quiz-option[data-q="${qIndex}"].selected`);
+        const correctOpt = quizBlock.querySelector(`.quiz-option[data-q="${qIndex}"][data-opt="${correctAnswers[qIndex]}"]`);
+        correctOpt.classList.add('correct-answer');
+
+        if (selected) {
+          const selectedOptIndex = Number(selected.getAttribute('data-opt'));
+          if (selectedOptIndex === correctAnswers[qIndex]) {
+            correctCount++;
+          } else {
+            selected.classList.add('wrong-answer');
+          }
+        }
+      }
+
+      quizBlock.classList.add('checked');
+
+      const resultEl = document.getElementById(`quiz-result-${sectionId}`);
+      let message;
+      if (correctCount === totalQuestions) {
+        message = `🎉 ¡Excelente! Acertaste las ${totalQuestions} preguntas.`;
+      } else if (correctCount === 0) {
+        message = `Acertaste 0 de ${totalQuestions}. Vuelve a leer el nivel y repasa las respuestas marcadas arriba.`;
+      } else {
+        message = `Acertaste ${correctCount} de ${totalQuestions}. Revisa las respuestas marcadas arriba.`;
+      }
+      resultEl.textContent = message;
+      resultEl.classList.add('show');
+    }
+
     sections.forEach((section, index) => {
       // Crear item en tabla de contenidos
       const tocItem = document.createElement('div');
@@ -1963,6 +2616,11 @@
       contentSection.innerHTML = `
         <h2 class="section-title">${section.title}</h2>
         ${section.content}
+        ${renderQuizHTML(section)}
+        <div class="consulta-block">
+          <p class="consulta-text">¿Tienes alguna duda sobre este nivel?</p>
+          <a class="consulta-btn" href="${buildConsultaMailto(section)}">✉️ Enviar una consulta</a>
+        </div>
         <div class="section-nav">
           <button id="prev-${section.id}" class="nav-prev">← Anterior</button>
           <button id="next-${section.id}" class="nav-next">Siguiente →</button>
