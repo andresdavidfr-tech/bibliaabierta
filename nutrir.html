@@ -2508,6 +2508,16 @@
             const titleEl = sectionEl.querySelector('.section-title') || sectionEl;
             const rect = titleEl.getBoundingClientRect();
             const targetY = window.scrollY + rect.top - NAV_SCROLL_OFFSET;
+            // DIAGNÓSTICO TEMPORAL — quitar después de identificar el bug
+            alert(
+              'DEBUG\\n' +
+              'titleEl encontrado: "' + titleEl.textContent.trim().slice(0, 50) + '"\\n' +
+              'titleEl es sectionEl (fallback): ' + (titleEl === sectionEl) + '\\n' +
+              'rect.top: ' + rect.top + '\\n' +
+              'window.scrollY: ' + window.scrollY + '\\n' +
+              'NAV_SCROLL_OFFSET: ' + NAV_SCROLL_OFFSET + '\\n' +
+              'targetY calculado: ' + targetY
+            );
             window.scrollTo({ top: Math.max(targetY, 0), behavior: 'smooth' });
           });
         });
