@@ -2508,29 +2508,28 @@
             const titleEl = sectionEl.querySelector('.section-title') || sectionEl;
             const rect = titleEl.getBoundingClientRect();
             const targetY = window.scrollY + rect.top - NAV_SCROLL_OFFSET;
-            // DIAGNÓSTICO TEMPORAL — quitar después de identificar el bug
-            alert(
-              'DEBUG\\n' +
-              'titleEl encontrado: "' + titleEl.textContent.trim().slice(0, 50) + '"\\n' +
-              'titleEl es sectionEl (fallback): ' + (titleEl === sectionEl) + '\\n' +
-              'rect.top: ' + rect.top + '\\n' +
-              'window.scrollY: ' + window.scrollY + '\\n' +
-              'NAV_SCROLL_OFFSET: ' + NAV_SCROLL_OFFSET + '\\n' +
-              'targetY calculado: ' + targetY
-            );
             window.scrollTo({ top: Math.max(targetY, 0), behavior: 'smooth' });
           });
         });
       }
 
       if (tocContainer.classList.contains('collapsed')) {
+        const tocItemsEl = document.getElementById('toc-items');
         let done = false;
-        const finish = () => {
+        // Importante: filtrar por propertyName === 'max-height'. Cada chip
+        // numerado del TOC tiene su propia transición corta (transform al
+        // tocarlo) que también dispara 'transitionend' y burbujea hasta
+        // aquí; sin este filtro, esa mini-animación (que termina casi al
+        // instante) se confundía con el fin del colapso real del panel,
+        // y el título se medía con el TOC todavía completamente desplegado.
+        const finish = (e) => {
+          if (e && e.propertyName !== 'max-height') return;
           if (done) return;
           done = true;
+          tocItemsEl.removeEventListener('transitionend', finish);
           measureAndScroll();
         };
-        tocContainer.addEventListener('transitionend', finish, { once: true });
+        tocItemsEl.addEventListener('transitionend', finish);
         setTimeout(finish, 350); // salvavidas si transitionend no dispara
       } else {
         measureAndScroll();
