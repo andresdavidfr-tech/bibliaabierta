@@ -395,6 +395,19 @@
       pointer-events: all;
     }
     
+    /* ESTADO BLOQUEADO: se habilita solo tras abrir la parte anterior */
+    .part-circle.locked,
+    .circle-label.locked {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    
+    .part-circle.locked ~ .circle-label:hover,
+    .circle-label.locked:hover {
+      fill: inherit;
+      filter: none;
+    }
+    
     /* CTA del gráfico */
     .diagram-cta {
       text-align: center;
@@ -406,6 +419,11 @@
       text-transform: uppercase;
       animation: pulse 2s ease-in-out infinite;
       margin-top: 1rem;
+    }
+    
+    .diagram-cta.hint {
+      color: #b23a3a;
+      animation: none;
     }
     
     @keyframes pulse {
@@ -1130,32 +1148,32 @@
             
             <g class="circle-middle">
               <!-- Círculo medio (Alma) -->
-              <circle cx="150" cy="150" r="95" stroke="#6b8e71" stroke-width="2.5" fill="#6b8e71" data-part="alma" class="part-circle" style="pointer-events: all; cursor: pointer;"/>
+              <circle cx="150" cy="150" r="95" stroke="#6b8e71" stroke-width="2.5" fill="#6b8e71" data-part="alma" class="part-circle locked" style="pointer-events: all; cursor: pointer;"/>
               
               <!-- Etiqueta ALMA siguiendo la curvatura -->
-              <text class="circle-label" data-part="alma" style="fill: #1a3a52; font-size: 0.95rem; font-weight: 600; pointer-events: all; cursor: pointer;">
+              <text class="circle-label locked" data-part="alma" style="fill: #1a3a52; font-size: 0.95rem; font-weight: 600; pointer-events: all; cursor: pointer;">
                 <textPath href="#circle-middle-path" startOffset="50%" text-anchor="middle">
                   ALMA
                 </textPath>
               </text>
               
               <!-- Área invisible para hacer clic más fácil -->
-              <circle cx="150" cy="150" r="95" fill="transparent" data-part="alma" class="part-circle-clickable" style="pointer-events: all; cursor: pointer;"/>
+              <circle cx="150" cy="150" r="95" fill="transparent" data-part="alma" class="part-circle-clickable locked" style="pointer-events: all; cursor: pointer;"/>
             </g>
             
             <g class="circle-inner">
               <!-- Círculo interior (Espíritu) -->
-              <circle cx="150" cy="150" r="50" stroke="#fafaf6" stroke-width="2.5" fill="#fafaf6" data-part="espiritu" class="part-circle" style="pointer-events: all; cursor: pointer;"/>
+              <circle cx="150" cy="150" r="50" stroke="#fafaf6" stroke-width="2.5" fill="#fafaf6" data-part="espiritu" class="part-circle locked" style="pointer-events: all; cursor: pointer;"/>
               
               <!-- Etiqueta ESPÍRITU siguiendo la curvatura -->
-              <text class="circle-label" data-part="espiritu" style="fill: #1a3a52; font-size: 0.9rem; font-weight: 700; pointer-events: all; cursor: pointer;">
+              <text class="circle-label locked" data-part="espiritu" style="fill: #1a3a52; font-size: 0.9rem; font-weight: 700; pointer-events: all; cursor: pointer;">
                 <textPath href="#circle-inner-path" startOffset="50%" text-anchor="middle">
                   ESPÍRITU
                 </textPath>
               </text>
               
               <!-- Área invisible para hacer clic más fácil -->
-              <circle cx="150" cy="150" r="50" fill="transparent" data-part="espiritu" class="part-circle-clickable" style="pointer-events: all; cursor: pointer;"/>
+              <circle cx="150" cy="150" r="50" fill="transparent" data-part="espiritu" class="part-circle-clickable locked" style="pointer-events: all; cursor: pointer;"/>
             </g>
           </svg>
         </div>
@@ -1619,57 +1637,91 @@
   </footer>
 
   <script>
-    // Diagrama interactivo mejorado
+    // Diagrama interactivo mejorado — desbloqueo progresivo:
+    // Cuerpo siempre disponible; Alma se habilita tras abrir Cuerpo;
+    // Espíritu se habilita tras abrir Alma.
     const clickableElements = document.querySelectorAll('.part-circle, .part-circle-clickable, .circle-label');
-    
+    const diagramCta = document.querySelector('.diagram-cta');
+    const defaultCtaText = diagramCta ? diagramCta.textContent : '';
+
+    const unlockOrder = { cuerpo: null, alma: 'cuerpo', espiritu: 'alma' };
+    const unlocked = { cuerpo: true, alma: false, espiritu: false };
+    const partLabel = { cuerpo: 'Cuerpo', alma: 'Alma', espiritu: 'Espíritu' };
+
+    function setLockedVisual(part, isLocked) {
+      document.querySelectorAll(`[data-part="${part}"]`).forEach(el => {
+        el.classList.toggle('locked', isLocked);
+      });
+    }
+
+    function showHint(text) {
+      if (!diagramCta) return;
+      diagramCta.textContent = text;
+      diagramCta.classList.add('hint');
+      clearTimeout(showHint._t);
+      showHint._t = setTimeout(() => {
+        diagramCta.textContent = defaultCtaText;
+        diagramCta.classList.remove('hint');
+      }, 2200);
+    }
+
+    function openPart(part) {
+      // Remover clase active de todos
+      document.querySelectorAll('.part-info').forEach(info => {
+        info.classList.remove('active');
+      });
+      document.querySelectorAll('.part-circle').forEach(circle => {
+        circle.classList.remove('active');
+      });
+
+      // Añadir clase active al clickeado
+      const infoElement = document.getElementById(part + '-info');
+      if (infoElement) infoElement.classList.add('active');
+
+      const circleElement = document.querySelector(`[data-part="${part}"].part-circle`);
+      if (circleElement) circleElement.classList.add('active');
+
+      // Scroll suave hacia la información
+      setTimeout(() => {
+        const info = document.getElementById(part + '-info');
+        if (info) info.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+
+      // Desbloquear la siguiente parte de la secuencia
+      if (part === 'cuerpo' && !unlocked.alma) {
+        unlocked.alma = true;
+        setLockedVisual('alma', false);
+      } else if (part === 'alma' && !unlocked.espiritu) {
+        unlocked.espiritu = true;
+        setLockedVisual('espiritu', false);
+      }
+    }
+
     clickableElements.forEach(element => {
       element.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const part = this.getAttribute('data-part');
         if (!part) return;
-        
-        // Remover clase active de todos
-        document.querySelectorAll('.part-info').forEach(info => {
-          info.classList.remove('active');
-        });
-        
-        document.querySelectorAll('.part-circle').forEach(circle => {
-          circle.classList.remove('active');
-        });
-        
-        // Añadir clase active al clickeado
-        const infoElement = document.getElementById(part + '-info');
-        if (infoElement) {
-          infoElement.classList.add('active');
+
+        if (!unlocked[part]) {
+          const requiredPart = unlockOrder[part];
+          showHint(`🔒 Primero abre "${partLabel[requiredPart]}"`);
+          return;
         }
-        
-        const circleElement = document.querySelector(`[data-part="${part}"].part-circle`);
-        if (circleElement) {
-          circleElement.classList.add('active');
-        }
-        
-        // Scroll suave hacia la información
-        setTimeout(() => {
-          const info = document.getElementById(part + '-info');
-          if (info) {
-            info.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        }, 100);
+
+        openPart(part);
       });
-      
-      // Pointer para indicar interactividad
+
       element.style.cursor = 'pointer';
     });
-    
-    // Activar espíritu por defecto después de que cargue la página
+
+    // Abrir Cuerpo por defecto después de que cargue la página —
+    // es el punto de partida de la secuencia (Cuerpo → Alma → Espíritu)
     window.addEventListener('load', function() {
       setTimeout(() => {
-        const espirituElement = document.querySelector('[data-part="espiritu"].part-circle');
-        if (espirituElement) {
-          espirituElement.click();
-        }
+        openPart('cuerpo');
       }, 600);
     });
     
