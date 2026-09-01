@@ -1717,13 +1717,8 @@
       element.style.cursor = 'pointer';
     });
 
-    // Abrir Cuerpo por defecto después de que cargue la página —
-    // es el punto de partida de la secuencia (Cuerpo → Alma → Espíritu)
-    window.addEventListener('load', function() {
-      setTimeout(() => {
-        openPart('cuerpo');
-      }, 600);
-    });
+    // Nada se abre automáticamente al cargar: el usuario debe apretar
+    // Cuerpo primero, y así sucesivamente según la secuencia.
     
     // Manejar formulario de registro
     const registrationForm = document.getElementById('registration-form-element');
