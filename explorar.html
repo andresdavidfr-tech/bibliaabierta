@@ -346,21 +346,26 @@
       stroke-dasharray: 5, 5;
     }
     
-    /* Punta de flecha (triángulo) que avanza junto con el trazo animado
-       de su línea/curva. La dirección se define por elemento con las
-       variables --arrow-dx/--arrow-dy (en px, sobre el propio viewBox),
-       para que sirva con cualquier ángulo sin tener que crear una
-       animación nueva cada vez. Mismos 1.5s que .animate-flow, para
-       que el triángulo y el trazo se muevan al mismo ritmo. */
-    @keyframes arrow-advance {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(var(--arrow-dx, 0px), var(--arrow-dy, 0px)); }
+    /* Línea que "crece" desde su origen hasta la punta de flecha (fija,
+       sin mover). El triángulo NUNCA cambia de posición, así que por
+       construcción no puede abrirse un hueco entre la línea y la punta.
+       pathLength="100" normaliza CUALQUIER línea (sin importar su
+       longitud real) a una escala de 0 a 100, así esta misma clase
+       sirve para cualquier flecha futura sin tener que calcular nada
+       ni crear una animación nueva: solo agregar pathLength="100" a la
+       línea y las clases line-grow / arrow-fade-in. */
+    @keyframes line-grow {
+      0% { stroke-dashoffset: 100; }
+      55%, 100% { stroke-dashoffset: 0; }
     }
     
-    .arrow-advance {
-      animation: arrow-advance 1.5s ease-in-out infinite;
-      transform-box: fill-box;
-      transform-origin: center;
+    .line-grow {
+      stroke-dasharray: 100;
+      animation: line-grow 1.5s ease-out infinite;
+    }
+    
+    .arrow-fade-in {
+      animation: radiate-fade 1.5s ease-out infinite;
     }
     
     .animate-scale {
@@ -1136,8 +1141,8 @@
         <text x="150" y="341" text-anchor="middle" fill="#3d5a42" font-size="14" font-weight="600" font-family="Georgia, serif">cuerpo</text>
 
         <!-- Flecha larga, dibujada encima de los círculos: llega hasta el espíritu -->
-        <line x1="150" y1="48" x2="150" y2="176" stroke="#6b8e71" stroke-width="3.5" class="animate-flow"/>
-        <polygon points="150,187 140,167 160,167" fill="#6b8e71" class="arrow-advance" style="--arrow-dx:0px; --arrow-dy:7px"/>
+        <line x1="150" y1="48" x2="150" y2="176" stroke="#6b8e71" stroke-width="3.5" pathLength="100" class="line-grow"/>
+        <polygon points="150,187 140,167 160,167" fill="#6b8e71" class="arrow-fade-in"/>
 
         <text x="150" y="382" text-anchor="middle" fill="#5a6c7d" font-size="13" font-family="Georgia, serif">El hombre fue hecho para contener a Dios</text>
       </svg>
@@ -1469,9 +1474,9 @@
         </g>
         
         <!-- FLECHA TRANSFORMACIÓN -->
-        <g class="animate-flow">
-          <line x1="140" y1="80" x2="200" y2="80" stroke="#6b8e71" stroke-width="3"/>
-          <polygon points="205,80 200,77 200,83" fill="#6b8e71" class="arrow-advance" style="--arrow-dx:7px; --arrow-dy:0px"/>
+        <g>
+          <line x1="140" y1="80" x2="200" y2="80" stroke="#6b8e71" stroke-width="3" pathLength="100" class="line-grow"/>
+          <polygon points="205,80 200,77 200,83" fill="#6b8e71" class="arrow-fade-in"/>
           
           <text x="170" y="65" text-anchor="middle" fill="#6b8e71" font-size="9" font-weight="bold">Creer en Cristo</text>
         </g>
