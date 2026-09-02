@@ -237,6 +237,30 @@
       100% { stroke-dasharray: 100, 0; }
     }
     
+    /* Flechas que crecen desde el centro hacia la circunferencia */
+    @keyframes radiate-out {
+      0% { stroke-dashoffset: 45; }
+      55% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 0; }
+    }
+    
+    @keyframes radiate-fade {
+      0%, 8% { opacity: 0; }
+      20%, 90% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    
+    .radiate-line {
+      stroke-dasharray: 45;
+      animation: radiate-out 1.8s ease-out infinite, radiate-fade 1.8s ease-out infinite;
+    }
+    
+    .radiate-arrow {
+      animation: radiate-fade 1.8s ease-out infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    
     @keyframes animate-scale {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
@@ -1040,7 +1064,7 @@
       <div class="section-title">El Plan de Dios</div>
       
       <!-- GRÁFICO: El Propósito de Dios -->
-      <svg class="diagram-svg" viewBox="0 0 300 340" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram-svg" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="godGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style="stop-color:#6b8e71"/>
@@ -1049,24 +1073,24 @@
         </defs>
 
         <!-- DIOS arriba -->
-        <text x="150" y="34" text-anchor="middle" fill="#1a3a52" font-weight="bold" font-size="24" font-family="Georgia, serif" class="animate-pulse">DIOS</text>
+        <text x="150" y="32" text-anchor="middle" fill="#1a3a52" font-weight="bold" font-size="24" font-family="Georgia, serif" class="animate-pulse">DIOS</text>
 
-        <!-- Flecha hacia abajo -->
-        <line x1="150" y1="48" x2="150" y2="88" stroke="#6b8e71" stroke-width="3" class="animate-flow"/>
-        <polygon points="150,98 140,80 160,80" fill="#6b8e71" class="animate-flow"/>
+        <!-- Círculos concéntricos (dibujados primero, para que la flecha quede encima) -->
+        <circle cx="150" cy="245" r="112" fill="#e6ede3" stroke="#6b8e71" stroke-width="2"/>
+        <circle cx="150" cy="245" r="74" fill="#c9dcc4" stroke="#6b8e71" stroke-width="2"/>
+        <circle cx="150" cy="245" r="40" fill="url(#godGrad2)" stroke="#1a3a52" stroke-width="2" class="animate-glow"/>
+        <text x="150" y="241" text-anchor="middle" fill="white" font-size="13" font-weight="700" font-family="Georgia, serif">espíritu</text>
+        <text x="150" y="256" text-anchor="middle" fill="#d8e8da" font-size="10" font-family="Georgia, serif">DIOS aquí</text>
 
-        <!-- Círculos concéntricos -->
-        <circle cx="150" cy="220" r="110" fill="#e6ede3" stroke="#6b8e71" stroke-width="2"/>
-        <text x="150" y="122" text-anchor="middle" fill="#3d5a42" font-size="14" font-weight="600">cuerpo</text>
+        <!-- Etiquetas dentro de cada anillo -->
+        <text x="150" y="306" text-anchor="middle" fill="#2d452f" font-size="14" font-weight="600" font-family="Georgia, serif">alma</text>
+        <text x="150" y="341" text-anchor="middle" fill="#3d5a42" font-size="14" font-weight="600" font-family="Georgia, serif">cuerpo</text>
 
-        <circle cx="150" cy="220" r="72" fill="#c9dcc4" stroke="#6b8e71" stroke-width="2"/>
-        <text x="150" y="160" text-anchor="middle" fill="#2d452f" font-size="14" font-weight="600">alma</text>
+        <!-- Flecha larga, dibujada encima de los círculos: llega hasta el espíritu -->
+        <line x1="150" y1="48" x2="150" y2="176" stroke="#6b8e71" stroke-width="3.5" class="animate-flow"/>
+        <polygon points="150,187 140,167 160,167" fill="#6b8e71"/>
 
-        <circle cx="150" cy="220" r="38" fill="url(#godGrad2)" stroke="#1a3a52" stroke-width="2" class="animate-glow"/>
-        <text x="150" y="216" text-anchor="middle" fill="white" font-size="13" font-weight="700">espíritu</text>
-        <text x="150" y="231" text-anchor="middle" fill="#d8e8da" font-size="10">DIOS aquí</text>
-
-        <text x="150" y="316" text-anchor="middle" fill="#5a6c7d" font-size="13">El hombre fue hecho para contener a Dios</text>
+        <text x="150" y="382" text-anchor="middle" fill="#5a6c7d" font-size="13" font-family="Georgia, serif">El hombre fue hecho para contener a Dios</text>
       </svg>
       
       <p class="section-text">
@@ -1215,58 +1239,54 @@
       <div class="section-title">La Caída del Hombre</div>
       
       <!-- GRÁFICO: El Impacto del Pecado -->
-      <svg class="diagram-svg" viewBox="0 0 340 470" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram-svg" viewBox="0 0 300 620" preserveAspectRatio="xMidYMid meet">
         <defs>
-          <linearGradient id="beforeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#6b8e71;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#8bc34a;stop-opacity:1" />
+          <linearGradient id="beforeCenterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#6b8e71"/>
+            <stop offset="100%" style="stop-color:#3d6b45"/>
           </linearGradient>
-          <linearGradient id="afterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#d32f2f;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#b71c1c;stop-opacity:1" />
+          <linearGradient id="afterCenterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#8b3a3a"/>
+            <stop offset="100%" style="stop-color:#5a2020"/>
           </linearGradient>
         </defs>
 
-        <!-- ANTES DEL PECADO -->
-        <text x="170" y="24" text-anchor="middle" fill="#4a7050" font-weight="bold" font-size="17">ANTES (Creación)</text>
+        <!-- ANTES -->
+        <text x="150" y="28" text-anchor="middle" fill="#3d6b45" font-weight="bold" font-size="17" font-family="Georgia, serif">ANTES (Creación)</text>
 
-        <circle cx="80" cy="80" r="30" fill="url(#beforeGrad)" class="animate-scale"/>
-        <text x="80" y="86" text-anchor="middle" fill="white" font-size="14" font-weight="bold">✓</text>
-        <text x="80" y="126" text-anchor="middle" fill="#3d5a42" font-size="14" font-weight="600">Espíritu</text>
+        <circle cx="150" cy="155" r="95" fill="#e6ede3" stroke="#6b8e71" stroke-width="2" class="animate-scale"/>
+        <circle cx="150" cy="155" r="63" fill="#c9dcc4" stroke="#6b8e71" stroke-width="2"/>
+        <circle cx="150" cy="155" r="34" fill="url(#beforeCenterGrad)" stroke="#3d6b45" stroke-width="2" class="animate-glow"/>
+        <!-- Check dibujado con líneas -->
+        <polyline points="138,155 147,164 163,146" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="150" y="178" text-anchor="middle" fill="white" font-size="11" font-weight="700" font-family="Georgia, serif">espíritu</text>
 
-        <circle cx="170" cy="80" r="30" fill="url(#beforeGrad)" class="animate-scale"/>
-        <text x="170" y="86" text-anchor="middle" fill="white" font-size="14" font-weight="bold">✓</text>
-        <text x="170" y="126" text-anchor="middle" fill="#3d5a42" font-size="14" font-weight="600">Alma</text>
+        <text x="150" y="201" text-anchor="middle" fill="#2d452f" font-size="12" font-weight="600" font-family="Georgia, serif">alma</text>
+        <text x="150" y="233" text-anchor="middle" fill="#3d5a42" font-size="12" font-weight="600" font-family="Georgia, serif">cuerpo</text>
 
-        <circle cx="260" cy="80" r="30" fill="url(#beforeGrad)" class="animate-scale"/>
-        <text x="260" y="86" text-anchor="middle" fill="white" font-size="14" font-weight="bold">✓</text>
-        <text x="260" y="126" text-anchor="middle" fill="#3d5a42" font-size="14" font-weight="600">Cuerpo</text>
+        <text x="150" y="272" text-anchor="middle" fill="#4a7050" font-size="13" font-family="Georgia, serif">Conexión viva con Dios</text>
+        <text x="150" y="292" text-anchor="middle" fill="#4a7050" font-size="13" font-family="Georgia, serif">Santidad y vida eterna</text>
 
-        <text x="170" y="160" text-anchor="middle" fill="#4a7050" font-size="14">Conexión viva con Dios</text>
-        <text x="170" y="182" text-anchor="middle" fill="#4a7050" font-size="14">Santidad y vida eterna</text>
+        <!-- DIVISOR -->
+        <line x1="30" y1="322" x2="270" y2="322" stroke="#8b9aaa" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <polygon points="150,342 138,324 162,324" fill="#8b3a3a"/>
+        <text x="150" y="362" text-anchor="middle" fill="#8b3a3a" font-size="15" font-weight="bold" font-family="Georgia, serif">EL PECADO ENTRA</text>
 
-        <!-- DIVISOR: EL PECADO ENTRA -->
-        <line x1="30" y1="210" x2="310" y2="210" stroke="#8b9aaa" stroke-width="1.5" stroke-dasharray="4,4"/>
-        <polygon points="170,238 160,222 180,222" fill="#c45a5a"/>
-        <text x="170" y="256" text-anchor="middle" fill="#8b3a3a" font-size="15" font-weight="bold">EL PECADO ENTRA</text>
+        <!-- DESPUÉS -->
+        <text x="150" y="402" text-anchor="middle" fill="#8b3a3a" font-weight="bold" font-size="17" font-family="Georgia, serif">DESPUÉS (Caída)</text>
 
-        <!-- DESPUÉS DEL PECADO -->
-        <text x="170" y="292" text-anchor="middle" fill="#b23a3a" font-weight="bold" font-size="17">DESPUÉS (Caída)</text>
+        <circle cx="150" cy="500" r="95" fill="#f0e2e2" stroke="#b25858" stroke-width="2" class="animate-shake"/>
+        <circle cx="150" cy="500" r="63" fill="#e0c4c4" stroke="#b25858" stroke-width="2"/>
+        <circle cx="150" cy="500" r="34" fill="url(#afterCenterGrad)" stroke="#5a2020" stroke-width="2"/>
+        <!-- X dibujada con líneas -->
+        <line x1="138" y1="488" x2="162" y2="512" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="162" y1="488" x2="138" y2="512" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <text x="150" y="529" text-anchor="middle" fill="white" font-size="10" font-weight="700" font-family="Georgia, serif">espíritu</text>
 
-        <circle cx="80" cy="348" r="30" fill="url(#afterGrad)" class="animate-shake"/>
-        <line x1="80" y1="334" x2="80" y2="362" stroke="white" stroke-width="2.5"/>
-        <text x="80" y="394" text-anchor="middle" fill="#8b3a3a" font-size="14" font-weight="600">Espíritu</text>
+        <text x="150" y="558" text-anchor="middle" fill="#6b2c2c" font-size="12" font-weight="600" font-family="Georgia, serif">alma</text>
+        <text x="150" y="588" text-anchor="middle" fill="#7a3232" font-size="12" font-weight="600" font-family="Georgia, serif">cuerpo</text>
 
-        <circle cx="170" cy="348" r="30" fill="url(#afterGrad)" class="animate-shake"/>
-        <text x="170" y="354" text-anchor="middle" fill="white" font-size="14" font-weight="bold">✗</text>
-        <text x="170" y="394" text-anchor="middle" fill="#8b3a3a" font-size="14" font-weight="600">Alma</text>
-
-        <circle cx="260" cy="348" r="30" fill="url(#afterGrad)" class="animate-shake"/>
-        <text x="260" y="354" text-anchor="middle" fill="white" font-size="14" font-weight="bold">✗</text>
-        <text x="260" y="394" text-anchor="middle" fill="#8b3a3a" font-size="14" font-weight="600">Cuerpo</text>
-
-        <text x="170" y="428" text-anchor="middle" fill="#b23a3a" font-size="14">Espíritu muerto, separado de Dios</text>
-        <text x="170" y="450" text-anchor="middle" fill="#b23a3a" font-size="14">Mente enemiga, carne pecaminosa</text>
+        <text x="150" y="612" text-anchor="middle" fill="#7a3232" font-size="12" font-family="Georgia, serif">Espíritu muerto, mente enemiga, carne pecaminosa</text>
       </svg>
       
       <p class="section-text">
@@ -1292,7 +1312,7 @@
       <div class="section-title">Cristo Redime al Hombre para que Dios Pueda Impartirse en Él</div>
       
       <!-- GRÁFICO: El Camino de la Redención -->
-      <svg class="diagram-svg" viewBox="0 0 320 620" preserveAspectRatio="xMidYMid meet">
+      <svg class="diagram-svg" viewBox="0 0 680 300" preserveAspectRatio="xMidYMid meet">
         <defs>
           <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" style="stop-color:#ffd700"/>
@@ -1300,56 +1320,47 @@
           </linearGradient>
         </defs>
 
-        <text x="160" y="28" text-anchor="middle" fill="#1a3a52" font-weight="bold" font-size="16">Dios</text>
-        <circle cx="160" cy="55" r="26" fill="#1a3a52"/>
-        <text x="160" y="60" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Dios</text>
+        <!-- Línea de flujo -->
+        <polyline points="60,55 165,105 255,175 255,210 350,175 460,105 565,55"
+          fill="none" stroke="#6b8e71" stroke-width="2.5" stroke-dasharray="6,5" class="animate-flow"/>
 
-        <line x1="160" y1="81" x2="160" y2="111" stroke="#6b8e71" stroke-width="2.5" class="animate-flow"/>
-        <polygon points="160,119 152,105 168,105" fill="#6b8e71" class="animate-flow"/>
-        <text x="200" y="102" text-anchor="middle" fill="#6b8e71" font-size="11" font-weight="600">1. Encarnación</text>
+        <!-- Dios (inicio) -->
+        <circle cx="60" cy="55" r="26" fill="#1a3a52"/>
+        <text x="60" y="60" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Georgia, serif">Dios</text>
+        <text x="60" y="24" text-anchor="middle" fill="#1a3a52" font-size="12" font-weight="700" font-family="Georgia, serif">1. Encarnación</text>
 
         <!-- Vivir humano -->
-        <circle cx="160" cy="148" r="26" fill="#8b9aaa"/>
-        <text x="160" y="145" text-anchor="middle" fill="white" font-size="9" font-weight="bold">vivir</text>
-        <text x="160" y="156" text-anchor="middle" fill="white" font-size="9" font-weight="bold">humano</text>
-
-        <line x1="160" y1="174" x2="160" y2="204" stroke="#6b8e71" stroke-width="2.5" class="animate-flow"/>
-        <polygon points="160,212 152,198 168,198" fill="#6b8e71" class="animate-flow"/>
-        <text x="215" y="195" text-anchor="middle" fill="#6b8e71" font-size="11" font-weight="600">2. Crucifixión</text>
+        <circle cx="165" cy="105" r="24" fill="#8b9aaa"/>
+        <text x="165" y="102" text-anchor="middle" fill="white" font-size="8.5" font-weight="bold" font-family="Georgia, serif">vivir</text>
+        <text x="165" y="112" text-anchor="middle" fill="white" font-size="8.5" font-weight="bold" font-family="Georgia, serif">humano</text>
+        <text x="200" y="80" text-anchor="middle" fill="#5a6c7d" font-size="12" font-weight="700" font-family="Georgia, serif">2. Crucifixión</text>
 
         <!-- Cruz -->
-        <line x1="160" y1="222" x2="160" y2="266" stroke="#8b7355" stroke-width="5"/>
-        <line x1="140" y1="234" x2="180" y2="234" stroke="#8b7355" stroke-width="5"/>
+        <line x1="255" y1="148" x2="255" y2="188" stroke="#8b7355" stroke-width="5"/>
+        <line x1="238" y1="160" x2="272" y2="160" stroke="#8b7355" stroke-width="5"/>
 
-        <line x1="160" y1="272" x2="160" y2="302" stroke="#6b8e71" stroke-width="2.5" class="animate-flow"/>
-        <polygon points="160,310 152,296 168,296" fill="#6b8e71" class="animate-flow"/>
-        <text x="105" y="275" text-anchor="middle" fill="#5a6c7d" font-size="10">(sepulcro)</text>
-
-        <text x="215" y="313" text-anchor="middle" fill="#6b8e71" font-size="11" font-weight="600">3. Resurrección</text>
+        <!-- Sepulcro (punto más bajo) -->
+        <rect x="235" y="200" width="40" height="16" rx="2" fill="#8b9aaa"/>
+        <text x="255" y="230" text-anchor="middle" fill="#5a6c7d" font-size="10" font-family="Georgia, serif">(sepulcro)</text>
+        <text x="300" y="245" text-anchor="middle" fill="#5a6c7d" font-size="12" font-weight="700" font-family="Georgia, serif">3. Resurrección</text>
 
         <!-- Espíritu vivificante -->
-        <circle cx="160" cy="340" r="30" fill="url(#goldGrad)" class="animate-glow"/>
-        <text x="160" y="336" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Espíritu</text>
-        <text x="160" y="348" text-anchor="middle" fill="white" font-size="9" font-weight="bold">vivificante</text>
-
-        <line x1="160" y1="370" x2="160" y2="400" stroke="#6b8e71" stroke-width="2.5" class="animate-flow"/>
-        <polygon points="160,408 152,394 168,394" fill="#6b8e71" class="animate-flow"/>
-        <text x="207" y="400" text-anchor="middle" fill="#6b8e71" font-size="11" font-weight="600">4. Impartición</text>
+        <circle cx="350" cy="175" r="28" fill="url(#goldGrad)" class="animate-glow"/>
+        <text x="350" y="171" text-anchor="middle" fill="white" font-size="8.5" font-weight="bold" font-family="Georgia, serif">Espíritu</text>
+        <text x="350" y="182" text-anchor="middle" fill="white" font-size="8.5" font-weight="bold" font-family="Georgia, serif">vivificante</text>
+        <text x="405" y="150" text-anchor="middle" fill="#6b8e71" font-size="12" font-weight="700" font-family="Georgia, serif">4. Impartición</text>
 
         <!-- Hombre -->
-        <circle cx="160" cy="438" r="26" fill="#6b8e71"/>
-        <text x="160" y="443" text-anchor="middle" fill="white" font-size="10" font-weight="bold">hombre</text>
+        <circle cx="460" cy="105" r="24" fill="#6b8e71"/>
+        <text x="460" y="110" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="Georgia, serif">hombre</text>
+        <text x="470" y="72" text-anchor="middle" fill="#1a3a52" font-size="12" font-weight="700" font-family="Georgia, serif">5. Entronización</text>
 
-        <line x1="160" y1="464" x2="160" y2="494" stroke="#6b8e71" stroke-width="2.5" class="animate-flow"/>
-        <polygon points="160,502 152,488 168,488" fill="#6b8e71" class="animate-flow"/>
-        <text x="213" y="490" text-anchor="middle" fill="#6b8e71" font-size="11" font-weight="600">5. Entronización</text>
+        <!-- Dios en el hombre (final) -->
+        <circle cx="565" cy="55" r="28" fill="#1a3a52" class="animate-pulse"/>
+        <text x="565" y="51" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="Georgia, serif">Dios</text>
+        <text x="565" y="62" text-anchor="middle" fill="#c9d8e0" font-size="7.5" font-family="Georgia, serif">en el hombre</text>
 
-        <!-- Dios final, entronizado -->
-        <circle cx="160" cy="540" r="30" fill="#1a3a52" class="animate-pulse"/>
-        <text x="160" y="536" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Dios</text>
-        <text x="160" y="548" text-anchor="middle" fill="#c9d8e0" font-size="8">en el hombre</text>
-
-        <text x="160" y="600" text-anchor="middle" fill="#5a6c7d" font-size="13">Cristo imparte Su vida al creyente</text>
+        <text x="340" y="278" text-anchor="middle" fill="#5a6c7d" font-size="14" font-family="Georgia, serif">Cristo imparte Su vida al creyente</text>
       </svg>
       
       <p class="section-text">
@@ -1495,31 +1506,31 @@
         <text x="160" y="186" text-anchor="middle" fill="white" font-size="12" font-weight="700">Dios en el</text>
         <text x="160" y="200" text-anchor="middle" fill="white" font-size="12" font-weight="700">espíritu</text>
 
-        <!-- Flechas radiando hacia afuera (8 direcciones) -->
-        <g stroke="#e08600" stroke-width="2.5" class="animate-pulse">
-          <line x1="160" y1="150" x2="160" y2="115"/>
-          <polygon points="160,105 154,117 166,117" fill="#e08600"/>
+        <!-- Flechas radiando hacia afuera (8 direcciones), animadas creciendo desde el centro -->
+        <g stroke="#e08600" stroke-width="2.5">
+          <line class="radiate-line" x1="160" y1="150" x2="160" y2="115"/>
+          <polygon class="radiate-arrow" points="160,105 154,117 166,117" fill="#e08600"/>
 
-          <line x1="160" y1="230" x2="160" y2="265"/>
-          <polygon points="160,275 154,263 166,263" fill="#e08600"/>
+          <line class="radiate-line" x1="160" y1="230" x2="160" y2="265"/>
+          <polygon class="radiate-arrow" points="160,275 154,263 166,263" fill="#e08600"/>
 
-          <line x1="120" y1="190" x2="85" y2="190"/>
-          <polygon points="75,190 87,184 87,196" fill="#e08600"/>
+          <line class="radiate-line" x1="120" y1="190" x2="85" y2="190"/>
+          <polygon class="radiate-arrow" points="75,190 87,184 87,196" fill="#e08600"/>
 
-          <line x1="200" y1="190" x2="235" y2="190"/>
-          <polygon points="245,190 233,184 233,196" fill="#e08600"/>
+          <line class="radiate-line" x1="200" y1="190" x2="235" y2="190"/>
+          <polygon class="radiate-arrow" points="245,190 233,184 233,196" fill="#e08600"/>
 
-          <line x1="131" y1="161" x2="107" y2="137"/>
-          <polygon points="100,130 106,145 115,136" fill="#e08600"/>
+          <line class="radiate-line" x1="131" y1="161" x2="107" y2="137"/>
+          <polygon class="radiate-arrow" points="100,130 106,145 115,136" fill="#e08600"/>
 
-          <line x1="189" y1="161" x2="213" y2="137"/>
-          <polygon points="220,130 211,136 220,145" fill="#e08600"/>
+          <line class="radiate-line" x1="189" y1="161" x2="213" y2="137"/>
+          <polygon class="radiate-arrow" points="220,130 211,136 220,145" fill="#e08600"/>
 
-          <line x1="131" y1="219" x2="107" y2="243"/>
-          <polygon points="100,250 106,235 115,244" fill="#e08600"/>
+          <line class="radiate-line" x1="131" y1="219" x2="107" y2="243"/>
+          <polygon class="radiate-arrow" points="100,250 106,235 115,244" fill="#e08600"/>
 
-          <line x1="189" y1="219" x2="213" y2="243"/>
-          <polygon points="220,250 211,244 220,235" fill="#e08600"/>
+          <line class="radiate-line" x1="189" y1="219" x2="213" y2="243"/>
+          <polygon class="radiate-arrow" points="220,250 211,244 220,235" fill="#e08600"/>
         </g>
 
         <text x="160" y="350" text-anchor="middle" fill="#5a6c7d" font-size="13">Un proceso de toda la vida:</text>
