@@ -353,7 +353,7 @@
        longitud real) a una escala de 0 a 100, así esta misma clase
        sirve para cualquier flecha futura sin tener que calcular nada
        ni crear una animación nueva: solo agregar pathLength="100" a la
-       línea y las clases line-grow / arrow-fade-in. */
+       línea y las clases line-grow / arrow-travel. */
     @keyframes line-grow {
       0% { stroke-dashoffset: 100; }
       55%, 100% { stroke-dashoffset: 0; }
@@ -364,8 +364,24 @@
       animation: line-grow 1.5s ease-out infinite;
     }
     
-    .arrow-fade-in {
-      animation: radiate-fade 1.5s ease-out infinite;
+    /* La punta de flecha viaja junto con el trazo: arranca en el punto
+       de origen de la línea (superpuesta, "escondida" ahí) y se
+       desplaza hasta su posición final exactamente cuando la línea
+       termina de dibujarse. Usa los MISMOS puntos de tiempo (0%, 55%,
+       100%), duración (1.5s) y curva (ease-out) que .line-grow, para
+       que ambas se muevan en sincronía exacta y nunca se separen.
+       La distancia de viaje se define por elemento con --travel-x/
+       --travel-y (en px, igual a la longitud de esa línea en esa
+       dirección, en negativo), así sirve para cualquier flecha futura
+       sin crear una animación nueva: solo agregar la clase y setear
+       esas dos variables según el largo real de la línea. */
+    @keyframes arrow-travel {
+      0% { transform: translate(var(--travel-x, 0px), var(--travel-y, 0px)); }
+      55%, 100% { transform: translate(0, 0); }
+    }
+    
+    .arrow-travel {
+      animation: arrow-travel 1.5s ease-out infinite;
     }
     
     .animate-scale {
@@ -1142,7 +1158,7 @@
 
         <!-- Flecha larga, dibujada encima de los círculos: llega hasta el espíritu -->
         <line x1="150" y1="48" x2="150" y2="176" stroke="#6b8e71" stroke-width="3.5" pathLength="100" class="line-grow"/>
-        <polygon points="150,187 140,167 160,167" fill="#6b8e71" class="arrow-fade-in"/>
+        <polygon points="150,187 140,167 160,167" fill="#6b8e71" class="arrow-travel" style="--travel-x:0px; --travel-y:-128px"/>
 
         <text x="150" y="382" text-anchor="middle" fill="#5a6c7d" font-size="13" font-family="Georgia, serif">El hombre fue hecho para contener a Dios</text>
       </svg>
@@ -1476,7 +1492,7 @@
         <!-- FLECHA TRANSFORMACIÓN -->
         <g>
           <line x1="140" y1="80" x2="200" y2="80" stroke="#6b8e71" stroke-width="3" pathLength="100" class="line-grow"/>
-          <polygon points="205,80 200,77 200,83" fill="#6b8e71" class="arrow-fade-in"/>
+          <polygon points="205,80 200,77 200,83" fill="#6b8e71" class="arrow-travel" style="--travel-x:-60px; --travel-y:0px"/>
           
           <text x="170" y="65" text-anchor="middle" fill="#6b8e71" font-size="9" font-weight="bold">Creer en Cristo</text>
         </g>
