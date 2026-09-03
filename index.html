@@ -65,7 +65,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 4rem 5%;
+      padding: 4rem 2rem;
       margin-top: 60px;
       text-align: center;
       background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
@@ -109,6 +109,11 @@
     }
     
     @media(max-width: 768px) {
+      .hero {
+        padding: 3rem 1.5rem;
+        min-height: auto;
+      }
+      
       .banner {
         padding: 2.4rem 1.5rem;
         min-height: 300px;
@@ -129,8 +134,12 @@
     }
     
     @media(max-width: 480px) {
+      .hero {
+        padding: 2.5rem 1.25rem;
+      }
+      
       .banner {
-        padding: 2rem 1.2rem;
+        padding: 2rem 1.25rem;
         min-height: 280px;
       }
       

@@ -98,7 +98,7 @@
     .container {
       max-width: 900px;
       margin: 0 auto;
-      padding: 6rem 5% 4rem;
+      padding: 6rem 2.5rem 4rem;
     }
     
     .content-header {
@@ -846,7 +846,7 @@
       }
       
       .container {
-        padding: 5.5rem 4% 2rem;
+        padding: 5.5rem 1.5rem 3rem;
       }
       
       h1 {
@@ -957,7 +957,7 @@
       }
       
       .container {
-        padding: 5rem 3% 1.5rem;
+        padding: 5rem 1.25rem 2.5rem;
       }
       
       h1 {
@@ -1064,6 +1064,17 @@
       .toc-item:active {
         background: rgba(107, 142, 113, 0.1);
       }
+    }
+
+    /* Medida de lectura cómoda: líneas demasiado largas cansan la vista.
+       Se limita el ancho del texto corrido (no de los gráficos ni títulos)
+       a ~66 caracteres, centrando el bloque dentro de la sección. */
+    .section-text,
+    .scripture,
+    .quote {
+      max-width: 66ch;
+      margin-left: auto;
+      margin-right: auto;
     }
   </style>
 </head>

@@ -94,7 +94,7 @@
     .container {
       max-width: 900px;
       margin: 0 auto;
-      padding: 6rem 5% 4rem;
+      padding: 6rem 2.5rem 4rem;
     }
     
     .content-header {
@@ -976,7 +976,7 @@
       }
       
       .container {
-        padding: 5rem 3% 1.5rem;
+        padding: 5rem 1.25rem 2.5rem;
       }
     }
     
@@ -1012,7 +1012,7 @@
     
     @media(max-width: 760px) {
       .container {
-        padding: 5rem 5% 3rem;
+        padding: 5.5rem 1.5rem 3rem;
       }
       
       .content-section {
@@ -1099,6 +1099,17 @@
     @media(prefers-reduced-motion: reduce) {
       * { animation: none !important; transition: none !important; }
     }
+
+    /* Medida de lectura cómoda: líneas demasiado largas cansan la vista.
+       Se limita el ancho del texto corrido (no de los gráficos ni títulos)
+       a ~66 caracteres, centrando el bloque dentro de la sección. */
+    .section-text,
+    .scripture,
+    .quote {
+      max-width: 66ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 </head>
 <body class="page-explorar">
@@ -1149,7 +1160,7 @@
         <circle cx="150" cy="245" r="112" fill="#e6ede3" stroke="#6b8e71" stroke-width="2"/>
         <circle cx="150" cy="245" r="74" fill="#c9dcc4" stroke="#6b8e71" stroke-width="2"/>
         <circle cx="150" cy="245" r="40" fill="url(#godGrad2)" stroke="#1a3a52" stroke-width="2" class="animate-glow"/>
-        <text x="150" y="241" text-anchor="middle" fill="white" font-size="13" font-weight="700" font-family="Georgia, serif">espíritu</text>
+        <text x="150" y="241" text-anchor="middle" fill="#f5e9d0" font-size="13" font-weight="700" font-family="Georgia, serif">espíritu</text>
         <text x="150" y="256" text-anchor="middle" fill="#d8e8da" font-size="10" font-family="Georgia, serif">DIOS aquí</text>
 
         <!-- Etiquetas dentro de cada anillo -->
@@ -1329,7 +1340,7 @@
         <circle cx="150" cy="155" r="34" fill="url(#beforeCenterGrad)" stroke="#3d6b45" stroke-width="2" class="animate-glow"/>
         <!-- Check dibujado con líneas -->
         <polyline points="138,155 147,164 163,146" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="150" y="178" text-anchor="middle" fill="white" font-size="11" font-weight="700" font-family="Georgia, serif">espíritu</text>
+        <text x="150" y="178" text-anchor="middle" fill="#f5e9d0" font-size="11" font-weight="700" font-family="Georgia, serif">espíritu</text>
 
         <text x="150" y="201" text-anchor="middle" fill="#2d452f" font-size="12" font-weight="600" font-family="Georgia, serif">alma</text>
         <text x="150" y="233" text-anchor="middle" fill="#3d5a42" font-size="12" font-weight="600" font-family="Georgia, serif">cuerpo</text>
@@ -1351,7 +1362,7 @@
         <!-- X dibujada con líneas -->
         <line x1="138" y1="488" x2="162" y2="512" stroke="white" stroke-width="3" stroke-linecap="round"/>
         <line x1="162" y1="488" x2="138" y2="512" stroke="white" stroke-width="3" stroke-linecap="round"/>
-        <text x="150" y="529" text-anchor="middle" fill="white" font-size="10" font-weight="700" font-family="Georgia, serif">espíritu</text>
+        <text x="150" y="529" text-anchor="middle" fill="#f5e9d0" font-size="10" font-weight="700" font-family="Georgia, serif">espíritu</text>
 
         <text x="150" y="558" text-anchor="middle" fill="#6b2c2c" font-size="12" font-weight="600" font-family="Georgia, serif">alma</text>
         <text x="150" y="588" text-anchor="middle" fill="#7a3232" font-size="12" font-weight="600" font-family="Georgia, serif">cuerpo</text>
@@ -1399,13 +1410,13 @@
 
           <!-- Dios (inicio) -->
           <circle cx="50" cy="55" r="32" fill="#1a3a52"/>
-          <text x="50" y="61" text-anchor="middle" fill="white" font-size="14" font-weight="bold" font-family="Georgia, serif">Dios</text>
+          <text x="50" y="61" text-anchor="middle" fill="#f5e9d0" font-size="14" font-weight="bold" font-family="Georgia, serif">Dios</text>
           <text x="115" y="20" text-anchor="middle" fill="#1a3a52" font-size="14" font-weight="700" font-family="Georgia, serif">1. Encarnación</text>
 
           <!-- vivir humano -->
-          <circle cx="185" cy="130" r="30" fill="#5a6c7d"/>
-          <text x="185" y="125" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Georgia, serif">vivir</text>
-          <text x="185" y="139" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Georgia, serif">humano</text>
+          <circle cx="185" cy="130" r="30" fill="#4d5d6b"/>
+          <text x="185" y="125" text-anchor="middle" fill="#f5e9d0" font-size="11" font-weight="bold" font-family="Georgia, serif">vivir</text>
+          <text x="185" y="139" text-anchor="middle" fill="#f5e9d0" font-size="11" font-weight="bold" font-family="Georgia, serif">humano</text>
           <text x="250" y="76" text-anchor="middle" fill="#5a6c7d" font-size="13.5" font-weight="700" font-family="Georgia, serif">2. Crucifixión</text>
 
           <!-- Cruz -->
@@ -1423,13 +1434,13 @@
           <text x="390" y="76" text-anchor="middle" fill="#6b8e71" font-size="13.5" font-weight="700" font-family="Georgia, serif">3. Resurrección</text>
 
           <!-- hombre -->
-          <circle cx="590" cy="80" r="28" fill="#6b8e71"/>
-          <text x="590" y="86" text-anchor="middle" fill="white" font-size="12" font-weight="bold" font-family="Georgia, serif">hombre</text>
+          <circle cx="590" cy="80" r="28" fill="#4a7050"/>
+          <text x="590" y="86" text-anchor="middle" fill="#f5e9d0" font-size="12" font-weight="bold" font-family="Georgia, serif">hombre</text>
           <text x="530" y="130" text-anchor="middle" fill="#6b8e71" font-size="13.5" font-weight="700" font-family="Georgia, serif">4. Impartición</text>
 
           <!-- Dios en el hombre (final) -->
           <circle cx="700" cy="55" r="32" fill="#1a3a52" class="animate-pulse"/>
-          <text x="700" y="51" text-anchor="middle" fill="white" font-size="12" font-weight="bold" font-family="Georgia, serif">Dios</text>
+          <text x="700" y="51" text-anchor="middle" fill="#f5e9d0" font-size="12" font-weight="bold" font-family="Georgia, serif">Dios</text>
           <text x="700" y="64" text-anchor="middle" fill="#c9d8e0" font-size="9.5" font-family="Georgia, serif">en el hombre</text>
           <text x="655" y="18" text-anchor="middle" fill="#1a3a52" font-size="13.5" font-weight="700" font-family="Georgia, serif">5. Entronización</text>
 
