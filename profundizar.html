@@ -390,6 +390,109 @@
       margin-right: auto;
     }
   </style>
+
+  <style>
+    /* MANTENTE EN CONTACTO */
+    .contact-section {
+      margin-top: 3rem;
+      padding: 2.5rem;
+      background: linear-gradient(160deg, #4a3552 0%, #2d1f33 100%);
+      border-radius: 6px;
+      text-align: center;
+    }
+    
+    .contact-section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem;
+      color: #ffffff;
+      margin-bottom: 0.8rem;
+    }
+    
+    .contact-section p {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1rem;
+      color: #e5d8ea;
+      max-width: 480px;
+      margin: 0 auto 1.8rem;
+      line-height: 1.7;
+    }
+    
+    .contact-form {
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    
+    .contact-form .form-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    
+    .contact-form label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #d8c9e0;
+      margin-bottom: 0.4rem;
+    }
+    
+    .contact-form input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+    }
+    
+    .contact-form input::placeholder { color: #a993ae; }
+    
+    .contact-form input:focus {
+      outline: none;
+      border-color: var(--purple);
+      background: rgba(255,255,255,0.12);
+    }
+    
+    .contact-submit {
+      width: 100%;
+      padding: 0.95rem;
+      background: var(--purple);
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: opacity .2s;
+      min-height: 48px;
+    }
+    
+    .contact-submit:hover { opacity: 0.9; }
+    
+    .contact-success {
+      display: none;
+      background: rgba(107, 90, 124, 0.25);
+      border: 1px solid var(--purple);
+      color: #ede6f0;
+      padding: 1rem;
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+    
+    .contact-success.show { display: block; }
+    
+    @media(max-width: 480px) {
+      .contact-section { padding: 1.75rem 1.25rem; }
+      .contact-section h2 { font-size: 1.35rem; }
+    }
+  </style>
 </head>
 <body class="page-profundizar">
 
@@ -475,12 +578,78 @@
       </div>
     </div>
 
+    <!-- MANTENTE EN CONTACTO -->
+    <div class="contact-section">
+      <h2>📩 Mantente en Contacto</h2>
+      <p>
+        Si prefieres que te contactemos directamente, déjanos tus datos y nos comunicaremos contigo.
+      </p>
+
+      <form class="contact-form" id="profundizar-contact-form">
+        <div class="form-group">
+          <label for="pcontact-name">Nombre</label>
+          <input type="text" id="pcontact-name" name="name" required placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label for="pcontact-email">Correo electrónico</label>
+          <input type="email" id="pcontact-email" name="email" required placeholder="tu@correo.com">
+        </div>
+        <div class="form-group">
+          <label for="pcontact-phone">WhatsApp / Celular</label>
+          <input type="tel" id="pcontact-phone" name="phone" required placeholder="+1 234 567 8900">
+        </div>
+        <button type="submit" class="contact-submit">Quiero mantenerme en contacto</button>
+        <div class="contact-success" id="profundizar-contact-success">
+          ✅ ¡Gracias! Nos pondremos en contacto contigo pronto.
+        </div>
+      </form>
+    </div>
+
   </div>
 
   <!-- FOOTER -->
   <footer>
     <p>© 2025 La Biblia Abierta — Difundiendo el evangelio de Jesucristo y literatura saludable para el crecimiento espiritual con base en los escritos de Watchman Nee y Witness Lee</p>
   </footer>
+
+  <script>
+    const profundizarContactForm = document.getElementById('profundizar-contact-form');
+    if (profundizarContactForm) {
+      profundizarContactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const data = {
+          name: document.getElementById('pcontact-name').value,
+          email: document.getElementById('pcontact-email').value,
+          phone: document.getElementById('pcontact-phone').value,
+          city: '',
+          province: '',
+          message: '',
+          timestamp: new Date().toISOString(),
+          source: 'La Biblia Abierta - Profundizar'
+        };
+
+        // Misma URL de Apps Script que usa el formulario de Explorar
+        // (ver google-apps-script.gs). Reemplazar tras el despliegue.
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/REEMPLAZAR_CON_TU_ID_DE_DESPLIEGUE/exec';
+
+        try {
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(data)
+          });
+
+          document.getElementById('profundizar-contact-success').classList.add('show');
+          profundizarContactForm.reset();
+        } catch (error) {
+          console.log('Datos del formulario:', data);
+          alert('Hubo un error al enviar tus datos. Por favor intenta de nuevo.');
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
