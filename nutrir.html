@@ -470,6 +470,64 @@
       color: var(--white);
     }
     
+    /* BOTONES DE COMPARTIR */
+    .share-block {
+      margin-top: 1.8rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid rgba(26, 58, 82, 0.1);
+      text-align: center;
+    }
+    
+    .share-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--slate);
+      margin-bottom: 0.9rem;
+    }
+    
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.4rem;
+      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: opacity .2s;
+      min-height: 46px;
+      touch-action: manipulation;
+    }
+    
+    .share-btn:hover {
+      opacity: 0.88;
+    }
+    
+    .share-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    
+    .share-btn-whatsapp {
+      background: #25D366;
+      color: white;
+    }
+    
+    .share-btn-email {
+      background: var(--sage);
+      color: white;
+    }
+    }
+    
     /* NAVEGACIÓN ENTRE SECCIONES */
     .section-nav {
       display: flex;
@@ -1083,7 +1141,7 @@
   <!-- NAVEGACIÓN -->
   <nav>
     <a href="index.html" class="logo">
-      <img class="mark" src="assets/logo.png" alt="biblia abierta" width="199" height="160">biblia abierta
+      <img class="mark" src="assets/logo.png" alt="Biblia Abierta" width="199" height="160">Biblia Abierta
     </a>
     <a href="index.html" class="nav-back">← Volver</a>
   </nav>
@@ -2967,6 +3025,41 @@
       return `mailto:${CONSULTA_EMAIL}?subject=${subject}&body=${body}`;
     }
 
+    // Enlaces para compartir con otros lo que se acaba de leer
+    const SITE_URL = 'https://andresdavidfr-tech.github.io/bibliaabierta/nutrir.html';
+
+    function buildShareText(section) {
+      return `Acabo de leer "${section.title}" en Biblia Abierta 📖\n\nTe comparto el enlace para que también lo leas:\n${SITE_URL}`;
+    }
+
+    function buildWhatsappShare(section) {
+      return `https://wa.me/?text=${encodeURIComponent(buildShareText(section))}`;
+    }
+
+    function buildEmailShare(section) {
+      const subject = encodeURIComponent(`Te comparto: ${section.title} - Biblia Abierta`);
+      const body = encodeURIComponent(buildShareText(section));
+      return `mailto:?subject=${subject}&body=${body}`;
+    }
+
+    function renderShareHTML(section) {
+      return `
+        <div class="share-block">
+          <p class="share-text">¿Te ayudó esta lectura? Compártela con alguien más</p>
+          <div class="share-buttons">
+            <a class="share-btn share-btn-whatsapp" href="${buildWhatsappShare(section)}" target="_blank" rel="noopener">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M23.47 19.14c-.36-.18-2.13-1.05-2.46-1.17-.33-.12-.57-.18-.81.18-.24.36-.93 1.17-1.14 1.41-.21.24-.42.27-.78.09-.36-.18-1.52-.56-2.9-1.79-1.07-.96-1.79-2.14-2-2.5-.21-.36-.02-.55.16-.73.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.81-1.95-1.11-2.67-.29-.7-.59-.6-.81-.61-.21-.01-.45-.01-.69-.01-.24 0-.63.09-.96.45-.33.36-1.26 1.23-1.26 3s1.29 3.48 1.47 3.72c.18.24 2.54 3.88 6.16 5.44.86.37 1.53.59 2.05.76.86.27 1.65.23 2.27.14.69-.1 2.13-.87 2.43-1.71.3-.84.3-1.56.21-1.71-.09-.15-.33-.24-.69-.42Z"/></svg>
+              WhatsApp
+            </a>
+            <a class="share-btn share-btn-email" href="${buildEmailShare(section)}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M2 6c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6Zm2 0 8 6 8-6H4Zm16 2.24-7.4 5.55a1 1 0 0 1-1.2 0L4 8.24V18h16V8.24Z"/></svg>
+              Correo
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
     // Genera el HTML del cuestionario de repaso (3 preguntas) de un nivel
     function renderQuizHTML(section) {
       if (!section.quiz || section.quiz.length === 0) return '';
@@ -3089,6 +3182,7 @@
           <p class="consulta-text">¿Tienes alguna duda sobre este nivel?</p>
           <a class="consulta-btn" href="${buildConsultaMailto(section)}">✉️ Enviar una consulta</a>
         </div>
+        ${renderShareHTML(section)}
         <div class="section-nav">
           <button id="prev-${section.id}" class="nav-prev">← Anterior</button>
           <button id="next-${section.id}" class="nav-next">Siguiente →</button>
