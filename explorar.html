@@ -392,11 +392,38 @@
     
     .animate-scale {
       animation: animate-scale 2s ease-in-out infinite;
+      transform-box: fill-box;
       transform-origin: center;
     }
     
     .animate-shake {
       animation: animate-shake 1.5s ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    
+    /* Giro suave y constante (círculo "antes", vida en orden) */
+    @keyframes rotate-smooth {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .animate-rotate-smooth {
+      animation: rotate-smooth 14s linear infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    
+    /* Giro entrecortado/irregular en sentido contrario (círculo
+       "después", quiebre/desorden tras la caída) */
+    @keyframes rotate-jitter {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+    
+    .animate-rotate-jitter {
+      animation: rotate-jitter 9s steps(24, jump-end) infinite;
+      transform-box: fill-box;
       transform-origin: center;
     }
     
@@ -1341,7 +1368,7 @@
         <!-- ANTES -->
         <text x="150" y="28" text-anchor="middle" fill="#3d6b45" font-weight="bold" font-size="17" font-family="Georgia, serif">ANTES (Creación)</text>
 
-        <circle cx="150" cy="155" r="95" fill="#e6ede3" stroke="#6b8e71" stroke-width="2" class="animate-scale"/>
+        <circle cx="150" cy="155" r="95" fill="#e6ede3" stroke="#6b8e71" stroke-width="2" stroke-dasharray="10,6" class="animate-rotate-smooth"/>
         <circle cx="150" cy="155" r="63" fill="#c9dcc4" stroke="#6b8e71" stroke-width="2"/>
         <circle cx="150" cy="155" r="34" fill="#a8d5b0" stroke="#3d6b45" stroke-width="2" class="animate-glow"/>
         <!-- Check dibujado con líneas -->
@@ -1362,7 +1389,7 @@
         <!-- DESPUÉS -->
         <text x="150" y="402" text-anchor="middle" fill="#8b3a3a" font-weight="bold" font-size="17" font-family="Georgia, serif">DESPUÉS (Caída)</text>
 
-        <circle cx="150" cy="500" r="95" fill="#f0e2e2" stroke="#b25858" stroke-width="2" class="animate-shake"/>
+        <circle cx="150" cy="500" r="95" fill="#f0e2e2" stroke="#b25858" stroke-width="2" stroke-dasharray="10,6" class="animate-rotate-jitter"/>
         <circle cx="150" cy="500" r="63" fill="#e0c4c4" stroke="#b25858" stroke-width="2"/>
         <circle cx="150" cy="500" r="34" fill="#e8b4b4" stroke="#5a2020" stroke-width="2"/>
         <!-- X dibujada con líneas -->
