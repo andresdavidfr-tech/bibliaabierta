@@ -1,11 +1,20 @@
 /**
- * La Biblia Abierta — Puente entre el formulario de "Explorar" y Google Sheets
+ * La Biblia Abierta — Puente entre los formularios del sitio y Google Sheets
  *
  * QUÉ HACE:
- * Recibe los datos del formulario de registro (nombre, correo, teléfono,
- * ciudad, provincia, mensaje) vía POST y los agrega como una nueva fila
- * en esta hoja de cálculo. Si la hoja está vacía, crea automáticamente
- * la fila de encabezados en la primera ejecución.
+ * Recibe los datos de los formularios de registro/contacto (nombre, correo,
+ * teléfono, ciudad, provincia, mensaje) de las páginas Explorar, Nutrir y
+ * Profundizar vía POST, y los agrega como una nueva fila en esta hoja de
+ * cálculo. Si la hoja está vacía, crea automáticamente la fila de
+ * encabezados en la primera ejecución. La columna "Origen" indica de qué
+ * página vino cada registro.
+ *
+ * IMPORTANTE — CUENTA DE GOOGLE:
+ * Esta hoja de cálculo NO está en la cuenta andresdavidfr@gmail.com usada
+ * en pasos anteriores; está en otra cuenta tuya. Este script debe
+ * instalarse y desplegarse DESDE la cuenta que sea DUEÑA (o tenga acceso
+ * de Editor) de esta hoja específica — iniciá sesión en script.google.com
+ * con esa cuenta, no con andresdavidfr@gmail.com.
  *
  * CÓMO INSTALARLO DESDE UN CELULAR (sin la app de Drive/Sheets):
  * El editor de Apps Script no existe dentro de la app móvil de Drive
@@ -16,12 +25,13 @@
  *
  * 1. Abre tu navegador (no la app de Drive/Sheets) y anda a:
  *    https://script.google.com
- * 2. Inicia sesión con la misma cuenta (andresdavidfr@gmail.com)
+ * 2. Inicia sesión con la cuenta DUEÑA de esta hoja (la del enlace
+ *    que me pasaste, no andresdavidfr@gmail.com)
  * 3. Toca "+ Nuevo proyecto" (o el botón "+")
  * 4. Borra el código de ejemplo (function myFunction() {...}) que
  *    aparece y pega TODO este archivo en su lugar
  * 5. Toca el ícono de guardar (disquete) arriba. Ponle un nombre al
- *    proyecto, ej. "Formulario Explorar"
+ *    proyecto, ej. "Formulario Biblia Abierta"
  * 6. Toca "Implementar" (Deploy) → "Nueva implementación"
  * 7. Toca el ícono de engranaje ⚙️ junto a "Selecciona el tipo" y
  *    elige "Aplicación web"
@@ -33,7 +43,8 @@
  *    "Configuración avanzada" → "Ir a [nombre del proyecto] (no
  *    seguro)" → "Permitir". Es tu propio script, es seguro.)
  * 10. Copia la "URL de la aplicación web" que te da (termina en /exec)
- * 11. Pásame esa URL para que la agregue en explorar.html
+ * 11. Pásame esa URL para que la agregue en las 3 páginas (Explorar,
+ *     Nutrir y Profundizar)
  *
  * Cada vez que edites este código después de la instalación inicial,
  * tenés que hacer "Implementar" → "Gestionar implementaciones" →
@@ -41,11 +52,10 @@
  * cambios entren en efecto (guardar el archivo NO alcanza).
  */
 
-// ID de la hoja "Estudio bíblico". Al usar openById en vez de
-// getActiveSpreadsheet(), este script funciona igual sea un proyecto
-// independiente (creado desde script.google.com) o vinculado a la
-// hoja (creado desde Extensiones > Apps Script en escritorio).
-var SHEET_ID = '1-eoKwWBBP8MSgD0rTPpzUaLzBNqoq9kZ_mSTpSO3yJQ';
+// ID de la hoja de destino (openById hace que este script funcione igual
+// sea un proyecto independiente creado desde script.google.com, o
+// vinculado a la hoja desde Extensiones > Apps Script en escritorio).
+var SHEET_ID = '1-r7R1IUdeACWF_rq6nKUa3e6KlDB5btDxYRBrvw0EAk';
 
 function doPost(e) {
   try {
@@ -96,7 +106,7 @@ function testDoPost() {
         city: 'Ciudad de Prueba',
         province: 'Provincia de Prueba',
         message: 'Este es un registro de prueba',
-        source: 'La Biblia Abierta - Explorar (prueba)'
+        source: 'La Biblia Abierta - Prueba'
       })
     }
   };
