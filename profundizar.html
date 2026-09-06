@@ -498,6 +498,41 @@
       .contact-section { padding: 1.75rem 1.25rem; }
       .contact-section h2 { font-size: 1.35rem; }
     }
+    
+    /* ACCESO AL GRUPO: oculto hasta enviar los datos de contacto */
+    .wa-access {
+      display: none;
+    }
+    
+    .wa-access.show {
+      display: block;
+      animation: waFadeIn .5s ease-out;
+    }
+    
+    @keyframes waFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .wa-gate-intro {
+      font-size: 0.95rem !important;
+      color: #ede6f0 !important;
+      margin-bottom: 1.5rem !important;
+    }
+    
+    /* El formulario ahora vive dentro del bloque morado de WhatsApp */
+    .whatsapp-cta .contact-form label {
+      color: #e5d8ea;
+    }
+    
+    .whatsapp-cta .contact-form input {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+    }
+    
+    .whatsapp-cta .contact-submit {
+      background: #25D366;
+    }
   </style>
 </head>
 <body class="page-profundizar">
@@ -570,49 +605,51 @@
         Recibe los horarios de los programas radiales y conéctate con otros creyentes que profundizan 
         en la Palabra junto contigo.
       </p>
-      
-      <div class="qr-wrapper">
-        <img src="assets/whatsapp-qr.jpg" alt="Código QR para unirse al grupo de WhatsApp" width="380" height="359">
-      </div>
-      <div class="qr-caption">Escanea el código para ingresar</div>
-      
-      <div>
-        <a href="https://chat.whatsapp.com/HBgvPqbbhTOLtSasb4FDYz?s=cl&p=i&mlu=4" class="whatsapp-button" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.8 1h.03a7.94 7.94 0 0 0 5.57-13.58ZM12.05 18.53h-.02a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.67-2.43-.16-.25a6.58 6.58 0 0 1 10.2-8.2 6.53 6.53 0 0 1 1.94 4.67 6.6 6.6 0 0 1-6.53 6.62Zm3.6-4.93c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.45.1-.13.2-.5.64-.62.77-.11.13-.23.14-.42.05-.2-.1-.83-.31-1.58-.98a5.92 5.92 0 0 1-1.1-1.36c-.11-.2 0-.3.09-.4.09-.1.2-.24.3-.36.1-.12.13-.2.2-.34.06-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.48-.16-.39-.33-.33-.45-.34h-.38c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.67s.72 1.94.82 2.07c.1.13 1.4 2.15 3.4 3.01.48.2.85.33 1.14.42.48.15.91.13 1.26.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z"/></svg>
-          Abrir Grupo de WhatsApp
-        </a>
-      </div>
-    </div>
 
-    <!-- MANTENTE EN CONTACTO -->
-    <div class="contact-section">
-      <h2>📩 Mantente en Contacto</h2>
-      <p>
-        Si prefieres que te contactemos directamente, déjanos tus datos y nos comunicaremos contigo.
-      </p>
+      <!-- PASO 1: Datos de contacto (visible al inicio) -->
+      <div id="wa-gate">
+        <p class="wa-gate-intro">
+          Para recibir el enlace de acceso al grupo, por favor déjanos primero tus datos de contacto:
+        </p>
 
-      <form class="contact-form" id="profundizar-contact-form">
-        <div class="form-group">
-          <label for="pcontact-name">Nombre</label>
-          <input type="text" id="pcontact-name" name="name" required placeholder="Tu nombre">
-        </div>
-        <div class="form-group">
-          <label for="pcontact-email">Correo electrónico</label>
-          <input type="email" id="pcontact-email" name="email" required placeholder="tu@correo.com">
-        </div>
-        <div class="form-group">
-          <label for="pcontact-phone">WhatsApp / Celular</label>
-          <input type="tel" id="pcontact-phone" name="phone" required placeholder="+1 234 567 8900">
-        </div>
-        <button type="submit" class="contact-submit">Quiero mantenerme en contacto</button>
-        <div class="contact-success" id="profundizar-contact-success">
+        <form class="contact-form" id="profundizar-contact-form">
+          <div class="form-group">
+            <label for="pcontact-name">Nombre</label>
+            <input type="text" id="pcontact-name" name="name" required placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label for="pcontact-email">Correo electrónico</label>
+            <input type="email" id="pcontact-email" name="email" required placeholder="tu@correo.com">
+          </div>
+          <div class="form-group">
+            <label for="pcontact-phone">WhatsApp / Celular</label>
+            <input type="tel" id="pcontact-phone" name="phone" required placeholder="+1 234 567 8900">
+          </div>
+          <button type="submit" class="contact-submit">Quiero unirme al grupo</button>
+        </form>
+      </div>
+
+      <!-- PASO 2: Acceso al grupo (aparece tras enviar los datos) -->
+      <div id="wa-access" class="wa-access">
+        <div class="contact-success show" id="profundizar-contact-success">
           <strong>🙏 ¡Bienvenido a Biblia Abierta!</strong><br><br>
-          Gracias por confiar en nosotros. Hemos recibido tus datos correctamente.<br><br>
-          Un representante de Biblia Abierta se pondrá en contacto contigo muy pronto para 
-          acompañarte en tu búsqueda de mayor luz y revelación.<br><br>
-          ¡Que el Señor te bendiga!
+          Gracias por confiar en nosotros. Hemos recibido tus datos correctamente y 
+          un representante se pondrá en contacto contigo muy pronto.<br><br>
+          Ya puedes ingresar al grupo:
         </div>
-      </form>
+
+        <div class="qr-wrapper">
+          <img src="assets/whatsapp-qr.jpg" alt="Código QR para unirse al grupo de WhatsApp" width="380" height="359">
+        </div>
+        <div class="qr-caption">Escanea el código para ingresar</div>
+        
+        <div>
+          <a href="https://chat.whatsapp.com/HBgvPqbbhTOLtSasb4FDYz?s=cl&p=i&mlu=4" class="whatsapp-button" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.8 1h.03a7.94 7.94 0 0 0 5.57-13.58ZM12.05 18.53h-.02a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.67-2.43-.16-.25a6.58 6.58 0 0 1 10.2-8.2 6.53 6.53 0 0 1 1.94 4.67 6.6 6.6 0 0 1-6.53 6.62Zm3.6-4.93c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.45.1-.13.2-.5.64-.62.77-.11.13-.23.14-.42.05-.2-.1-.83-.31-1.58-.98a5.92 5.92 0 0 1-1.1-1.36c-.11-.2 0-.3.09-.4.09-.1.2-.24.3-.36.1-.12.13-.2.2-.34.06-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.48-.16-.39-.33-.33-.45-.34h-.38c-.13 0-.35.05-.53.25-.18.2-.7.68-.7 1.67s.72 1.94.82 2.07c.1.13 1.4 2.15 3.4 3.01.48.2.85.33 1.14.42.48.15.91.13 1.26.08.38-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24Z"/></svg>
+            Abrir Grupo de WhatsApp
+          </a>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -632,7 +669,7 @@
         formData.append('entry.490575443', document.getElementById('pcontact-name').value);  // Nombre
         formData.append('entry.217840610', document.getElementById('pcontact-email').value); // Correo electronico
         formData.append('entry.993078335', document.getElementById('pcontact-phone').value); // Whatsapp / Celular
-        formData.append('entry.651123004', 'Profundizar - Mantente en Contacto');            // Origen
+        formData.append('entry.651123004', 'Profundizar - Acceso Grupo WhatsApp');         // Origen
 
         // Mismo formulario de Google que usan Explorar y Nutrir
         const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScvCeB0T31JsT8shBZg2QmP2Y9StvfYsRcXPySnWLHOycmEww/formResponse';
@@ -644,8 +681,15 @@
             body: formData
           });
 
-          document.getElementById('profundizar-contact-success').classList.add('show');
+          // Ocultar el formulario y revelar el acceso al grupo
+          document.getElementById('wa-gate').style.display = 'none';
+          document.getElementById('wa-access').classList.add('show');
           profundizarContactForm.reset();
+
+          // Llevar la vista al acceso recién revelado
+          setTimeout(() => {
+            document.getElementById('wa-access').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
         } catch (error) {
           console.log('Error al enviar el formulario:', error);
           alert('Hubo un error al enviar tus datos. Por favor intenta de nuevo.');
