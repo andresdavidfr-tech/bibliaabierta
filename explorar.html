@@ -853,13 +853,19 @@
     
     .form-success {
       display: none;
-      padding: 1.5rem;
+      padding: 1.6rem;
       background: #e8f5e9;
       border-left: 4px solid #4caf50;
       border-radius: 3px;
       color: #2e7d32;
       margin-top: 1rem;
       font-weight: 500;
+      line-height: 1.6;
+      text-align: center;
+    }
+    
+    .form-success strong {
+      font-size: 1.1rem;
     }
     
     .form-success.show {
@@ -1793,7 +1799,11 @@
         <button type="submit" class="form-submit">Enviar mi Registro 🙏</button>
         
         <div class="form-success" id="form-success">
-          ✅ ¡Gracias por tu registro! Nos pondremos en contacto pronto para invitarte a la reunión de vecindario.
+          <strong>🙏 ¡Bienvenido a Biblia Abierta!</strong><br><br>
+          Gracias por dar este paso y confiar en nosotros. Hemos recibido tus datos correctamente.<br><br>
+          Un representante de Biblia Abierta se pondrá en contacto contigo muy pronto para 
+          acompañarte e invitarte a una reunión de vecindario cerca de ti.<br><br>
+          ¡Que el Señor te bendiga en este nuevo caminar!
         </div>
       </form>
     </div>
@@ -1938,14 +1948,11 @@
           // Limpiar formulario
           registrationForm.reset();
           
-          // Mostrar formulario de nuevo después de 5 segundos
-          setTimeout(() => {
-            registrationForm.style.display = 'block';
-            formSuccess.classList.remove('show');
-          }, 5000);
+          // El mensaje de bienvenida queda visible; no se oculta solo,
+          // para que la persona pueda leerlo con calma.
         } catch (error) {
-          // Si falla la conexión, mostrar mensaje local igualmente
-          console.log('Datos del formulario:', data);
+          // Si falla la conexión, avisar para que pueda reintentar
+          console.log('Error al enviar el formulario:', error);
           alert('Hubo un error al enviar tu registro. Por favor intenta de nuevo o contáctanos directamente.');
         }
       });
