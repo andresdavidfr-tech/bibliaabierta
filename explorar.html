@@ -1906,36 +1906,29 @@
         const province = document.getElementById('province').value;
         const message = document.getElementById('message').value;
         
-        // Preparar datos para envío
-        const data = {
-          name,
-          email,
-          phone,
-          city,
-          province,
-          message,
-          timestamp: new Date().toISOString(),
-          source: 'La Biblia Abierta - Explorar'
-        };
-        
-        // URL de tu Google Apps Script desplegado como Web App (ver
-        // google-apps-script.gs para instrucciones de instalación).
-        // Reemplaza este placeholder por la URL real que termina en /exec
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwXdyjBt7yZmpw9xaxl_pywAg4Rm96gLPV-YuSo2YrkzDdRbGWYOaGfUDhyEHtC1QPX9Q/exec';
-        
+        // Preparar datos para envío a Google Forms
+        const formData = new FormData();
+        formData.append('entry.490575443', name);      // Nombre
+        formData.append('entry.217840610', email);     // Correo electronico
+        formData.append('entry.993078335', phone);     // Whatsapp / Celular
+        formData.append('entry.1402457700', city);     // Ciudad
+        formData.append('entry.1160784486', province); // Provincia
+        formData.append('entry.1234679397', message);  // Mensaje
+        formData.append('entry.651123004', 'Explorar - Reunión de Vecindario'); // Origen
+
+        // Formulario de Google que recibe los contactos de las 3 páginas.
+        // Las respuestas quedan en la pestaña "Respuestas" del formulario
+        // y, si se vincula, en la hoja de cálculo asociada.
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScvCeB0T31JsT8shBZg2QmP2Y9StvfYsRcXPySnWLHOycmEww/formResponse';
+
         try {
-          // Enviar a Google Sheets vía Apps Script.
-          // mode: 'no-cors' es necesario porque los Web Apps de Apps Script
-          // no devuelven headers CORS legibles para fetch entre dominios;
-          // esto significa que no podemos leer response.ok, pero el envío
-          // sí llega a la hoja. Si fetch no lanza error, asumimos éxito.
-          await fetch(GOOGLE_SCRIPT_URL, {
+          // mode: 'no-cors' es necesario porque Google Forms no devuelve
+          // headers CORS legibles; no podemos leer la respuesta, pero el
+          // envío sí se registra. Si fetch no lanza error, asumimos éxito.
+          await fetch(GOOGLE_FORM_URL, {
             method: 'POST',
             mode: 'no-cors',
-            headers: {
-              'Content-Type': 'text/plain',
-            },
-            body: JSON.stringify(data)
+            body: formData
           });
           
           // Mostrar mensaje de éxito
