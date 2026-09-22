@@ -1185,6 +1185,22 @@
       height: 18px;
       flex-shrink: 0;
     }
+    /* RENDIMIENTO: pausar animaciones de un gráfico mientras está fuera
+       de la pantalla (controlado por IntersectionObserver más abajo).
+       Con 6 diagramas animados en esta página, dejarlos todos corriendo
+       aunque no se vean recarga la CPU/batería sin necesidad, sobre
+       todo en celulares de gama baja. */
+    .diagram-svg.offscreen .line-grow,
+    .diagram-svg.offscreen .arrow-travel,
+    .diagram-svg.offscreen .animate-glow,
+    .diagram-svg.offscreen .animate-scale,
+    .diagram-svg.offscreen .animate-shake,
+    .diagram-svg.offscreen .radiate-line,
+    .diagram-svg.offscreen .radiate-arrow,
+    .diagram-svg.offscreen .animate-rotate-smooth,
+    .diagram-svg.offscreen .animate-rotate-jitter {
+      animation-play-state: paused;
+    }
   </style>
 </head>
 <body class="page-explorar">
@@ -1963,6 +1979,27 @@
         }
       });
     }
+
+    // RENDIMIENTO: pausar las animaciones de cada gráfico mientras no está
+    // a la vista (o cerca de estarlo), y reanudarlas al acercarse. Evita
+    // que las 6 gráficas de esta página animen simultáneamente aunque
+    // solo una esté en pantalla en un momento dado -- importante en
+    // celulares de gama baja, donde tantas animaciones CSS corriendo a
+    // la vez pueden sentirse como que la página "se traba".
+    if ('IntersectionObserver' in window) {
+      const diagramObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle('offscreen', !entry.isIntersecting);
+        });
+      }, { rootMargin: '150px' });
+
+      document.querySelectorAll('.diagram-svg').forEach((svg) => {
+        diagramObserver.observe(svg);
+      });
+    }
+    // Si el navegador no soporta IntersectionObserver (muy poco común
+    // hoy en día), las animaciones simplemente quedan corriendo siempre,
+    // como antes de este cambio -- no se rompe nada, solo no se optimiza.
   </script>
 
 </body>
